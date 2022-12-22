@@ -18,12 +18,19 @@ const load = (): Credentials | null => {
   return storage ? JSON.parse(storage) : null
 }
 
-export const useAuthStore = create<Credentials>((set, get) => ({
+interface AuthStoreState extends Credentials{
+  hasCredentials: () => boolean
+  loadCredentials: () => void
+  setCredentials: (credentials: Credentials, keepCredentials: boolean) => void
+  unsetCredentials: () => void
+}
+
+export const useAuthStore = create<AuthStoreState>((set, get) => ({
   username: null,
   password: null,
 
   hasCredentials: () => {
-    return get().username && get().password
+    return get().username !== null && get().password !== null
   },
 
   loadCredentials: () => {
