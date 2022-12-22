@@ -1,13 +1,27 @@
 import { useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import { Deck } from './routes/Deck'
+import { Error } from './routes/Error'
+import { Home } from './routes/Home'
+import { Login } from './routes/Login'
 
-import { Recard } from './components/Recard'
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/deck',
+    element: <Deck />,
+  },
+])
 
 export const App = () => {
-  return (
-    <div className='App'>
-      <h1>recard</h1>
-      <Recard question='What is the meaning of life?' answer='$\int_a^b x dx = 42$' />
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
