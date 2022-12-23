@@ -26,15 +26,14 @@ export const Login = () => {
   }
 
   const validInput = username !== '' && password !== ''
-  const headerText = error === null ? 'Login' : `Login (Error: ${error})`
 
   return (
-    <Grid container spacing={0} direction='column' alignItems='center' justifyContent='center' style={{ minHeight: '70vh' }}>
-      <Grid xs={3}>
-        <Box sx={{ width: { xs: '100vw', md: '50vw', lg: '25vw' } }}>
+    <Grid container direction='column' alignItems='center' justifyContent='center' sx={{ minHeight: '100vh' }}>
+      <Grid xs={12} md={6} lg={3}>
+        <Box sx={{ p: 2 }}>
           <Stack gap={2}>
             <Typography variant='h4' sx={{ mx: 'auto' }}>
-              {headerText}
+              Login
             </Typography>
             <TextField value={username} onChange={({ target }) => setUsername(target.value)} label='Username' />
             <TextField value={password} onChange={({ target }) => setPassword(target.value)} label='Password' />
