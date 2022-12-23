@@ -1,7 +1,8 @@
 import { Box, ButtonGroup, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { exists, isKnown, setKnown, useAuthStore } from '../store/auth'
+import { exists, isKnown, setKnown } from '../store/auth'
+import { useStore } from '../store/store'
 import { FormButton } from '../components/FormButton'
 
 export const Login = () => {
@@ -9,7 +10,7 @@ export const Login = () => {
   const [password, setPassword] = useState<string>('')
   const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-  const store = useAuthStore()
+  const store = useStore()
 
   const clearInput = (): void => {
     setUsername('')

@@ -1,11 +1,7 @@
+import { SHA256 } from 'crypto-js'
 import create from 'zustand'
-import SHA256 from 'crypto-js/sha256'
-import { read } from 'fs'
-
-export interface Credentials {
-  username: string
-  password: string
-}
+import { Credentials } from '../types'
+import { AuthSlice, StateCreator, Store } from '../types/store'
 
 const save = (credentials: Credentials | null) => {
   if (!credentials) {
@@ -20,16 +16,7 @@ const load = (): Credentials | null => {
   return storage ? JSON.parse(storage) : null
 }
 
-interface AuthStoreState {
-  username: string | null
-  password: string | null
-  hasCredentials: () => boolean
-  loadCredentials: () => void
-  setCredentials: (credentials: Credentials, keepCredentials: boolean) => void
-  unsetCredentials: () => void
-}
-
-export const useAuthStore = create<AuthStoreState>((set, get) => ({
+export const createAuthSlice: StateCreator<AuthSlice> = (set, get) => ({
   username: null,
   password: null,
 
@@ -44,6 +31,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
       ...state,
       ...credentials,
     }))
+    get().reloadDecks()
   },
 
   setCredentials: (credentials: Credentials, keepCredentials: boolean = true) => {
@@ -52,6 +40,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
       ...state,
       ...credentials,
     }))
+    get().reloadDecks()
   },
 
   unsetCredentials: () => {
@@ -61,8 +50,9 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
       username: null,
       password: null,
     }))
+    get().reloadDecks()
   },
-}))
+})
 
 // map of hashed username to hashed username + password
 type KnownCredentials = Record<string, string>

@@ -1,7 +1,7 @@
 import * as API from '../api/recard'
 import { useEffect, useState } from 'react'
 import { Box, List, ListItem, Typography } from '@mui/material'
-import { useAuthStore } from '../store/auth'
+import { useStore } from '../store/store'
 import { onShake } from '../api/shake'
 
 export const Home = () => {
@@ -10,7 +10,7 @@ export const Home = () => {
     API.user().then(user => {
       setDecks(user?.decks || [])
     })
-  }, [useAuthStore().username])
+  }, [useStore(store => store.username)])
 
   useEffect(() => {
     console.log('starting shake listener')
@@ -26,7 +26,7 @@ export const Home = () => {
     <Box>
       <Typography>Home</Typography>
       <List>
-        // TODO: add button to edit and start learning
+        {/* TODO: add button to edit and start learning */}
         {decks.map(deck => (
           <ListItem>{deck}</ListItem>
         ))}
