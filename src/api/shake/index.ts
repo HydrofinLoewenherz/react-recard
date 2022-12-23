@@ -13,7 +13,7 @@ const DefaultShakeOptions: ShakeOptions = {
 
 /** The context in witch a shake happens, hods metadata about the shake. */
 export interface ShakeHandlerContext {
-  options: ShakeOptions,
+  options: ShakeOptions
   motion: DeviceMotionEvent
 }
 
@@ -40,7 +40,7 @@ export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>) 
     const acc_x = acc.x || 0
     const acc_y = acc.y || 0
     const acc_z = acc.z || 0
-    const mag = Math.sqrt((acc_x * acc_x) + (acc_y * acc_y) + (acc_z * acc_z));
+    const mag = Math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
 
     const currTime = new Date().getTime()
     if (mag > completeOptions.magThreshold && currTime - lastCallTime > completeOptions.debounce) {
@@ -48,7 +48,7 @@ export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>) 
       lastCallTime = new Date().getTime()
       handler({
         options: completeOptions,
-        motion: ev
+        motion: ev,
       })
     }
   }

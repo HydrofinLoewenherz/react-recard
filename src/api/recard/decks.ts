@@ -1,13 +1,13 @@
-import {Deck} from "./types";
-import {useAuthStore} from "../../store/auth";
-import SHA256 from "crypto-js/sha256"
-import AES from "crypto-js/aes"
-import {isDev} from "../mode";
+import { Deck } from './types'
+import { useAuthStore } from '../../store/auth'
+import SHA256 from 'crypto-js/sha256'
+import AES from 'crypto-js/aes'
+import { isDev } from '../mode'
 
 const useEncryption = !isDev()
 
 //<editor-fold desc="local storage access">
-const read = <T>(key: string): (T | null) => {
+const read = <T>(key: string): T | null => {
   const authStore = useAuthStore()
   if (!authStore.hasCredentials()) {
     return null
@@ -37,15 +37,14 @@ const write = <T>(key: string, data: T | null): boolean => {
 }
 //</editor-fold>
 
-
 interface UserData {
-  username: string,
+  username: string
   decks: string[]
 }
 
 const EmptyUserData = (username: string): UserData => ({
   username: username,
-  decks: []
+  decks: [],
 })
 
 export const user = async (): Promise<UserData | null> => {

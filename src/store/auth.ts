@@ -1,10 +1,10 @@
-import create from 'zustand';
-import SHA256 from "crypto-js/sha256"
-import {read} from "fs";
+import create from 'zustand'
+import SHA256 from 'crypto-js/sha256'
+import { read } from 'fs'
 
 export interface Credentials {
-  username: string,
-  password: string,
+  username: string
+  password: string
 }
 
 const save = (credentials: Credentials | null) => {
@@ -21,8 +21,8 @@ const load = (): Credentials | null => {
 }
 
 interface AuthStoreState {
-  username: string | null,
-  password: string | null,
+  username: string | null
+  password: string | null
   hasCredentials: () => boolean
   loadCredentials: () => void
   setCredentials: (credentials: Credentials, keepCredentials: boolean) => void
@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
   loadCredentials: () => {
     const credentials = load()
     if (!credentials) return
-    set((state) => ({
+    set(state => ({
       ...state,
       ...credentials,
     }))
@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
   setCredentials: (credentials: Credentials, keepCredentials: boolean = true) => {
     if (keepCredentials) save(credentials)
-    set((state) => ({
+    set(state => ({
       ...state,
       ...credentials,
     }))
@@ -56,13 +56,13 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
   unsetCredentials: () => {
     save(null)
-    set((state) => ({
+    set(state => ({
       ...state,
       username: null,
       password: null,
     }))
-  }
-}));
+  },
+}))
 
 // map of hashed username to hashed username + password
 type KnownCredentials = Record<string, string>
