@@ -17,10 +17,12 @@ export const Login = () => {
   const onSignup = () => {
     clearInput()
     setError("Couldn't sign up")
+    alert("Couldn't sign up")
   }
   const onLogin = () => {
     clearInput()
     setError('Invalid user')
+    alert('Invalid user')
   }
 
   const validInput = username !== '' && password !== ''
