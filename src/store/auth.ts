@@ -76,6 +76,14 @@ export const isKnown = (credentials: Credentials): boolean => {
   const entry = known[SHA256(credentials.username).toString()]
   return entry === SHA256(`${credentials.username}_${credentials.password}`).toString()
 }
+export const exists = (username: string): boolean => {
+  const storage = localStorage.getItem(`recard_auth_known-credentials`)
+  if (storage === null) {
+    return false
+  }
+  const known: KnownCredentials = JSON.parse(storage)
+  return known[SHA256(username).toString()] !== undefined
+}
 export const setKnown = (credentials: Credentials) => {
   const storage = localStorage.getItem(`recard_auth_known-credentials`)
   const known: KnownCredentials = storage === null ? {} : JSON.parse(storage)
