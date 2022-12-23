@@ -1,18 +1,17 @@
-import { Box, Button, ButtonGroup, FormControl, Input, Stack, TextField } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import Grid from '@mui/material/Unstable_Grid2'
 
 export const Login = () => {
-  const usernameRef = useRef<HTMLInputElement>()
-  const passwordRef = useRef<HTMLInputElement>()
-
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getInput = (): [string, string] => {
-    return [usernameRef!.current!.value, passwordRef!.current!.value]
-  }
   const clearInput = (): void => {
-    usernameRef!.current!.value = ''
-    passwordRef!.current!.value = ''
+    setUsername('')
+    setPassword('')
+    setStayLoggedIn(false)
   }
 
   const onSignup = () => {
@@ -24,24 +23,35 @@ export const Login = () => {
     setError('Invalid user')
   }
 
+  const validInput = username !== '' && password !== ''
   const headerText = error === null ? 'Login' : `Login (Error: ${error})`
 
   return (
-    <Box>
-      <h1>{headerText}</h1>
-      <Stack gap={1}>
-        <TextField inputRef={usernameRef} label='Username' />
-        <TextField inputRef={passwordRef} label='Password' />
-        // TODO: Disable buttons when inputs are empty
-        <ButtonGroup>
-          <Button onClick={onLogin} fullWidth>
-            Login
-          </Button>
-          <Button onClick={onSignup} fullWidth>
-            Signup
-          </Button>
-        </ButtonGroup>
-      </Stack>
-    </Box>
+    <Grid container spacing={0} direction='column' alignItems='center' justifyContent='center' style={{ minHeight: '70vh' }}>
+      <Grid xs={3}>
+        <Box sx={{ width: { xs: '100vw', md: '50vw', lg: '25vw' } }}>
+          <Stack gap={2}>
+            <Typography variant='h4' sx={{ mx: 'auto' }}>
+              {headerText}
+            </Typography>
+            <TextField value={username} onChange={({ target }) => setUsername(target.value)} label='Username' />
+            <TextField value={password} onChange={({ target }) => setPassword(target.value)} label='Password' />
+            <ButtonGroup>
+              <Button onClick={onLogin} fullWidth disabled={!validInput}>
+                Login
+              </Button>
+              <Button onClick={onSignup} fullWidth disabled={!validInput}>
+                Signup
+              </Button>
+            </ButtonGroup>
+            <FormControlLabel
+              control={<Checkbox checked={stayLoggedIn} onChange={({ target }) => setStayLoggedIn(target.checked)} />}
+              label='Stay logged in'
+            />
+          </Stack>
+          <Stack gap={0}></Stack>
+        </Box>
+      </Grid>
+    </Grid>
   )
 }
