@@ -1,43 +1,49 @@
 export interface ShakeOptions {
-  checkInterval: number
   magThreshold: number
 }
 
 const DefaultShakeOptions: ShakeOptions = {
-  checkInterval: 100,
-  magThreshold: 50
+  magThreshold: 15
 }
 
 export interface ShakeHandlerContext {
   options: ShakeOptions,
-  shake: Orientation
+  motion: DeviceMotionEvent
 }
 
 /** Handles any shake event,  */
 export type ShakeHandler = (ctx: ShakeHandlerContext) => (boolean | void)
 
-export class Orientation {
-  constructor(public x: number, public y: number, public z: number) {}
-
-  mag(): number {
-    return Math.sqrt((this.x * this.x) + (this.y * this.y) + (this.z * this.z));
-  }
-
-  diff(other: Orientation): Orientation {
-    return new Orientation(
-      this.x - other.x,
-      this.y - other.y,
-      this.z - other.z);
-  };
-}
-
 // register global listener for all handlers
-let lastEvent: DeviceOrientationEvent | null = null
+const handlers: Record<string, { handler: ShakeHandler, options: ShakeOptions }> = {}
 if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', (ev) => {
-    lastEvent = ev
+  window.addEventListener('devicemotion', (ev) => {
+    if (ev.acceleration === null) {
+      return
+    }
+
+    Object.entries(handlers)
+      .forEach(([key, { handler, options }]) => {
+        const acc = ev.acceleration
+        const acc_x = acc!.x || 0
+        const acc_y = acc!.y || 0
+        const acc_z = acc!.z || 0
+
+        const mag = Math.sqrt((acc_x * acc_x) + (acc_y * acc_y) + (acc_z * acc_z));
+        if (mag > options.magThreshold) {
+          console.debug(`detected shake with mag ${mag}`)
+          if (handler({
+            options: options,
+            motion: ev
+          })) {
+            console.debug(`stopping shake listen ${key}`)
+            delete handlers[key]
+          }
+        }
+    })
   })
 }
+
 
 export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>): boolean {
   if (!window.DeviceOrientationEvent) {
@@ -47,37 +53,11 @@ export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>):
     ...DefaultShakeOptions,
     ...(options || {}),
   }
-
-  let lastOrientation: Orientation | null = null
-  const interval = setInterval(() => {
-    if (lastEvent === null) {
-      return
-    }
-
-    const newOrientation = new Orientation(
-      lastEvent.beta || 0,
-      lastEvent.gamma || 0,
-      lastEvent.alpha || 0,
-    )
-
-    // check if shaken
-    if (lastOrientation !== null) {
-      const shake = lastOrientation.diff(newOrientation)
-      if (shake.mag() > completeOptions.magThreshold) {
-        console.debug(`detected device shake of and mag ${shake.mag()}`, shake)
-        // handle shake and check for discontinue
-        if (handler({
-          options: completeOptions,
-          shake: shake
-        })) {
-          console.info(`stopping shake listen`)
-          clearInterval(interval)
-        }
-      }
-    }
-
-    lastOrientation = newOrientation
-  }, completeOptions.checkInterval)
-
+  const key = (Math.random() + 1).toString(36).substring(7)
+  console.debug(`adding shake handler as ${key}`)
+  handlers[key] = {
+    handler,
+    options: completeOptions
+  }
   return true
 }
