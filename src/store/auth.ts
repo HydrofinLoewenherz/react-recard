@@ -5,18 +5,20 @@ import { userExists } from './user_storage'
 export const createAuthSlice: StateCreator<AuthSlice> = (set, get) => ({
   credentials: null,
 
-  isLoggedIn: () => {
-    return get().credentials !== null
+  isLoggedIn: (): boolean => {
+    const { credentials } = get()
+    return credentials !== null
   },
-  login: (cred: Credentials) => {
-    if (get().isLoggedIn()) return false
-    if (!userExists(cred)) return false
+  login: async (cred: Credentials): Promise<boolean> => {
+    const { isLoggedIn, loadDecks } = get()
+    if (isLoggedIn()) return false
+    if (!(await userExists(cred))) return false
     set(state => ({ ...state, credentials: cred }))
-    return true
+    return await loadDecks()
   },
-  logout: () => {
+  logout: async (): Promise<boolean> => {
     if (!get().isLoggedIn()) return false
-    set(state => ({ ...state, credentials: null }))
+    set(state => ({ ...state, decks: null, credentials: null }))
     return true
   },
 })

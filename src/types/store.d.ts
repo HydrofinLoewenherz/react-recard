@@ -5,8 +5,8 @@ import { Deck } from './deck'
 export interface AuthSlice {
   credentials: Credentials | null
   isLoggedIn: () => boolean
-  login: (cred: Credentials) => boolean
-  logout: () => boolean
+  login: (cred: Credentials) => Promise<boolean>
+  logout: () => Promise<boolean>
 }
 
 export interface DeckSlice {

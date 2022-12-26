@@ -1,5 +1,6 @@
 import { RawCredentials, Credentials } from '../types'
 import { globalKey, Local, hash } from './storage'
+import * as DeckAPI from '../api/recard'
 
 type User = { username: string; password: string }
 type UserList = User[]
@@ -17,7 +18,7 @@ export const forgetLogin = (): void => {
   Local.remove(globalKey('login'))
 }
 
-export const userExists = (cred: Credentials): boolean => {
+export const userExists = async (cred: Credentials): Promise<boolean> => {
   const userList = Local.load<UserList>(userListKey)
   if (userList === null) return false
 
@@ -25,7 +26,7 @@ export const userExists = (cred: Credentials): boolean => {
   return userList.findIndex(user => user.username === hash_ && user.password === cred.passwordHash) !== -1
 }
 
-export const addNewUser = (cred: Credentials): boolean => {
+export const addNewUser = async (cred: Credentials): Promise<boolean> => {
   const hash_ = hash(cred.username)
 
   let userList = Local.load<UserList>(userListKey)
@@ -38,10 +39,11 @@ export const addNewUser = (cred: Credentials): boolean => {
 
   userList.push({ username: hash_, password: cred.passwordHash })
   Local.save(userListKey, userList)
+  await DeckAPI.setDeckList([], cred)
   return true
 }
 
-export const deleteUser = (cred: Credentials): boolean => {
+export const deleteUser = async (cred: Credentials): Promise<boolean> => {
   const userList = Local.load<UserList>(userListKey)
   if (userList === null) return false
 

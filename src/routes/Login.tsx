@@ -19,22 +19,20 @@ const LoginPage = (props: LoginProps) => {
   const login = useStore(store => store.login)
 
   const clearInput = (): void => {
-    setUsername('')
     setPassword('')
-    setStayLoggedIn(false)
   }
   const safeCreds = () => toSafeCredentials({ username, password })
 
-  const onSignup = () => {
-    if (addNewUser(safeCreds())) {
+  const onSignup = async () => {
+    if (await addNewUser(safeCreds())) {
       alert('Created user, you can login now')
     } else {
       alert('User already exists')
     }
     clearInput()
   }
-  const onLogin = () => {
-    if (userExists(safeCreds())) {
+  const onLogin = async () => {
+    if (await userExists(safeCreds())) {
       login(safeCreds())
       if (stayLoggedIn) {
         rememberLogin(safeCreds())

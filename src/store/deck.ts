@@ -9,15 +9,16 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     const { credentials } = get()
     if (credentials === null) return false
 
-    set(state => ({ ...state, decks: null }))
-
     const deckNames = await API.deckList(credentials)
-    if (deckNames === null) return false
+    if (deckNames === null) {
+      set(state => ({ ...state, decks: [] }))
+      return true
+    }
 
-    const newDecks_ = await Promise.all(deckNames.map(name => API.deck(name, credentials)))
-    const newDecks = newDecks_.filter(deck => deck !== null) as Deck[]
+    const decks_ = await Promise.all(deckNames.map(name => API.deck(name, credentials)))
+    const decks = decks_.filter(deck => deck !== null) as Deck[]
 
-    set(state => ({ ...state, decks: newDecks }))
+    set(state => ({ ...state, decks }))
     return true
   },
   saveDecks: async (): Promise<boolean> => {
@@ -40,6 +41,10 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     } else {
       decks.splice(index, 1, deck)
     }
+
+    // Without the `slice`-call the state-change wouldn't be registered,
+    // since it'd still be the same array, only the data inside the array changed
+    set(state => ({ ...state, decks: decks.slice() }))
     return true
   },
   removeDeck: (name: string): boolean => {
@@ -50,8 +55,11 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     if (index === -1) {
       return false
     }
-
     decks.splice(index, 1)
+
+    // Without the `slice`-call the state-change wouldn't be registered,
+    // since it'd still be the same array, only the data inside the array changed
+    set(state => ({ ...state, decks: decks.slice() }))
     return true
   },
   findDeck: (name: string): Deck | null => {
