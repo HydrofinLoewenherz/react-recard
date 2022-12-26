@@ -1,17 +1,21 @@
 import { StateCreator as StateCreator_ } from 'zustand'
+import { Credentials } from './auth'
+import { Deck } from './deck'
 
 export interface AuthSlice {
-  username: string | null
-  password: string | null
-  hasCredentials: () => boolean
-  loadCredentials: () => void
-  setCredentials: (credentials: Credentials, keepCredentials: boolean) => void
-  unsetCredentials: () => void
+  credentials: Credentials | null
+  isLoggedIn: () => boolean
+  login: (cred: Credentials) => boolean
+  logout: () => boolean
 }
 
 export interface DeckSlice {
   decks: Deck[] | null
-  reloadDecks: () => Promise<void>
+  loadDecks: () => Promise<boolean>
+  saveDecks: () => Promise<boolean>
+  setDeck: (deck: Deck) => boolean
+  removeDeck: (name: string) => boolean
+  findDeck: (name: string) => Deck | null
 }
 
 export type Store = AuthSlice & DeckSlice

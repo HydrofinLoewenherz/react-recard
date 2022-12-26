@@ -2,54 +2,34 @@ import { useStore } from '../../store/store'
 import SHA256 from 'crypto-js/sha256'
 import AES from 'crypto-js/aes'
 import { isDev } from '../mode'
-import { Deck } from '../../types/deck'
-import { Credentials } from '../../types'
+import { Deck, DeckList } from '../../types/deck'
+import { RawCredentials, Credentials } from '../../types'
+import { Local, StoreKey, userKey } from '../../store/storage'
 
-const useEncryption = !isDev()
-
-//<editor-fold desc="local storage access">
-const read = <T>({ username, password }: Credentials, key: string): T | null => {
-  const item = localStorage.getItem(`recard_user-${username}_${key}`)
-  if (item === null) {
-    return null
-  }
-
-  const decrypted = AES.decrypt(item, SHA256(password as string))
-  return JSON.parse(useEncryption ? decrypted.toString() : item)
-}
-const write = <T>({ username, password }: Credentials, key: string, data: T | null): boolean => {
-  if (data === null) {
-    localStorage.removeItem(`recard_user-${username}_${key}`)
-  } else {
-    const encrypted = AES.encrypt(JSON.stringify(data), SHA256(password as string))
-    localStorage.setItem(`recard_user-${username}_${key}`, useEncryption ? encrypted.toString() : JSON.stringify(data))
-  }
-  return true
-}
-//</editor-fold>
-
-interface UserData {
-  username: string
-  decks: string[]
+export const deckKey = (name: string, cred: Credentials): StoreKey => {
+  return userKey(`deck__${name}`, cred)
 }
 
-const EmptyUserData = (username: string): UserData => ({
-  username: username,
-  decks: [],
-})
-
-export const decks = async (credentials: Credentials): Promise<UserData | null> => {
-  return read(credentials, `data`) || EmptyUserData(credentials.username)
+export const deckList = async (cred: Credentials): Promise<DeckList | null> => {
+  const key = userKey('deck-list', cred)
+  return Local.load(key, cred.aesKey)
+}
+export const setDeckList = async (names: string[], cred: Credentials): Promise<void> => {
+  const key = userKey('deck-list', cred)
+  Local.save(key, names, cred.aesKey)
 }
 
-export const deck = async (credentials: Credentials, name: string): Promise<Deck | null> => {
-  return read(credentials, `deck-${name}`)
+export const deck = async (name: string, cred: Credentials): Promise<Deck | null> => {
+  const key = deckKey(name, cred)
+  return Local.load(key, cred.aesKey)
 }
 
-export const setDeck = async (credentials: Credentials, deck: Deck): Promise<void> => {
-  write(credentials, `deck-${deck.name}`, deck)
+export const setDeck = async (name: string, cred: Credentials, deck: Deck): Promise<void> => {
+  const key = deckKey(name, cred)
+  Local.save(key, deck, cred.aesKey)
 }
 
-export const unsetDeck = async (credentials: Credentials, name: string): Promise<void> => {
-  write(credentials, `deck-${name}`, null)
+export const removeDeck = async (name: string, cred: Credentials): Promise<boolean> => {
+  const key = deckKey(name, cred)
+  return Local.remove(key)
 }

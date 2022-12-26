@@ -1,82 +1,22 @@
-import { SHA256 } from 'crypto-js'
-import create from 'zustand'
 import { Credentials } from '../types'
-import { AuthSlice, StateCreator, Store } from '../types/store'
-
-const save = (credentials: Credentials | null) => {
-  if (!credentials) {
-    sessionStorage.removeItem(`recard_auth_credentials`)
-    return
-  }
-  sessionStorage.setItem(`recard_auth_credentials`, JSON.stringify(credentials))
-}
-
-const load = (): Credentials | null => {
-  const storage = sessionStorage.getItem(`recard_auth_credentials`)
-  return storage ? JSON.parse(storage) : null
-}
+import { AuthSlice, StateCreator } from '../types/store'
+import { userExists } from './user_storage'
 
 export const createAuthSlice: StateCreator<AuthSlice> = (set, get) => ({
-  username: null,
-  password: null,
+  credentials: null,
 
-  hasCredentials: () => {
-    return get().username !== null && get().password !== null
+  isLoggedIn: () => {
+    return get().credentials !== null
   },
-
-  loadCredentials: () => {
-    const credentials = load()
-    if (!credentials) return
-    set(state => ({
-      ...state,
-      ...credentials,
-    }))
-    get().reloadDecks()
+  login: (cred: Credentials) => {
+    if (get().isLoggedIn()) return false
+    if (!userExists(cred)) return false
+    set(state => ({ ...state, credentials: cred }))
+    return true
   },
-
-  setCredentials: (credentials: Credentials, keepCredentials: boolean = true) => {
-    if (keepCredentials) save(credentials)
-    set(state => ({
-      ...state,
-      ...credentials,
-    }))
-    get().reloadDecks()
-  },
-
-  unsetCredentials: () => {
-    save(null)
-    set(state => ({
-      ...state,
-      username: null,
-      password: null,
-    }))
-    get().reloadDecks()
+  logout: () => {
+    if (!get().isLoggedIn()) return false
+    set(state => ({ ...state, credentials: null }))
+    return true
   },
 })
-
-// map of hashed username to hashed username + password
-type KnownCredentials = Record<string, string>
-
-export const isKnown = (credentials: Credentials): boolean => {
-  const storage = localStorage.getItem(`recard_auth_known-credentials`)
-  if (storage === null) {
-    return false
-  }
-  const known: KnownCredentials = JSON.parse(storage)
-  const entry = known[SHA256(credentials.username).toString()]
-  return entry === SHA256(`${credentials.username}_${credentials.password}`).toString()
-}
-export const exists = (username: string): boolean => {
-  const storage = localStorage.getItem(`recard_auth_known-credentials`)
-  if (storage === null) {
-    return false
-  }
-  const known: KnownCredentials = JSON.parse(storage)
-  return known[SHA256(username).toString()] !== undefined
-}
-export const setKnown = (credentials: Credentials) => {
-  const storage = localStorage.getItem(`recard_auth_known-credentials`)
-  const known: KnownCredentials = storage === null ? {} : JSON.parse(storage)
-  known[SHA256(credentials.username).toString()] = SHA256(`${credentials.username}_${credentials.password}`).toString()
-  localStorage.setItem(`recard_auth_known-credentials`, JSON.stringify(known))
-}
