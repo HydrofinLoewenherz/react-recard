@@ -1,31 +1,34 @@
 import { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Deck, Home, Learn, Login, Error, DeckList } from './routes'
+import { Deck, Home, Learn, Login, Error, Root, deckLoader } from './routes'
 import { useStore } from './store/store'
-import { decrypt, encrypt, Session, userKey } from './store/storage'
 import { recallLogin } from './store/user_storage'
+import { NavBar } from './components'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
     errorElement: <Error />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/deck',
-    element: <Deck />,
-  },
-  {
-    path: '/learn',
-    element: <Learn />,
-  },
-  {
-    path: '/decks',
-    element: <DeckList />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/deck/:deckName',
+        element: <Deck />,
+        loader: deckLoader,
+      },
+      {
+        path: '/learn',
+        element: <Learn />,
+      },
+    ],
   },
 ])
 
