@@ -1,4 +1,4 @@
-import { RawCredentials, Credentials } from '../types'
+import { Credentials } from '../types'
 import { globalKey, Local, hash } from './storage'
 import * as DeckAPI from '../api/recard'
 

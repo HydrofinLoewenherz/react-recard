@@ -1,7 +1,6 @@
 import { Box, Paper, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { FormButton } from '../components'
-import { Recard } from '../components/Recard'
 import { useStore } from '../store/store'
 import { Deck } from '../types'
 
@@ -51,8 +50,6 @@ const AddDeck = () => {
 }
 
 export const Home = () => {
-  const [name, setName] = useState('')
-
   const decks = useStore(store => store.decks)
   const creds = useStore(store => store.credentials)
 
@@ -61,7 +58,7 @@ export const Home = () => {
       {(creds === null && <Typography>Please log in first</Typography>) || (
         <>
           <AddDeck />
-          <Stack gap={1}>{decks !== null && decks.map(deck => <DeckInfo deck={deck} />)}</Stack>
+          <Stack gap={1}>{decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}</Stack>
         </>
       )}
     </Box>

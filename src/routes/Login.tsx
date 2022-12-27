@@ -5,16 +5,12 @@ import { useStore } from '../store/store'
 import { FormButton } from '../components/FormButton'
 import { addNewUser, forgetLogin, rememberLogin, userExists } from '../store/user_storage'
 import { toSafeCredentials } from '../store/storage'
-import { RawCredentials, Credentials } from '../types'
+import { Credentials } from '../types'
 
-type State<T> = [T, React.Dispatch<React.SetStateAction<T>>]
-
-type LoginProps = {}
-const LoginPage = (props: LoginProps) => {
+const LoginPage = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
 
   const login = useStore(store => store.login)
 
@@ -38,7 +34,7 @@ const LoginPage = (props: LoginProps) => {
         rememberLogin(safeCreds())
       }
     } else {
-      alert!('Invalid username or password')
+      alert('Invalid username or password')
     }
     clearInput()
   }
