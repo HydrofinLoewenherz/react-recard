@@ -1,47 +1,52 @@
 import { Box, ButtonGroup, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { exists, isKnown, setKnown, useAuthStore } from '../store/auth'
+import { useStore } from '../store/store'
 import { FormButton } from '../components/FormButton'
+import { addNewUser, forgetLogin, rememberLogin, userExists } from '../store/user_storage'
+import { toSafeCredentials } from '../store/storage'
+import { RawCredentials, Credentials } from '../types'
 
-export const Login = () => {
+type State<T> = [T, React.Dispatch<React.SetStateAction<T>>]
+
+type LoginProps = {}
+const LoginPage = (props: LoginProps) => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-  const store = useAuthStore()
+
+  const login = useStore(store => store.login)
 
   const clearInput = (): void => {
-    setUsername('')
     setPassword('')
-    setStayLoggedIn(false)
   }
+  const safeCreds = () => toSafeCredentials({ username, password })
 
-  const onSignup = () => {
-    if (exists(username)) {
-      alert('Username already exists')
-    } else {
-      setKnown({ username, password })
+  const onSignup = async () => {
+    if (await addNewUser(safeCreds())) {
       alert('Created user, you can login now')
+    } else {
+      alert('User already exists')
     }
     clearInput()
   }
-  const onLogin = () => {
-    if (isKnown({ username, password })) {
-      store.setCredentials({ username, password }, stayLoggedIn)
+  const onLogin = async () => {
+    if (await userExists(safeCreds())) {
+      login(safeCreds())
+      if (stayLoggedIn) {
+        rememberLogin(safeCreds())
+      }
     } else {
       alert!('Invalid username or password')
     }
     clearInput()
   }
-  const onLogout = () => {
-    store.unsetCredentials()
-  }
 
   const validPassword = password !== '' && /\d{2,}/i.test(password)
   const validInput = username !== '' && validPassword
 
-  const Login_ = () => (
+  return (
     <Stack gap={2}>
       <Typography variant='h4' sx={{ mx: 'auto' }}>
         Login
@@ -62,21 +67,38 @@ export const Login = () => {
       />
     </Stack>
   )
-  const Logout_ = () => (
+}
+
+type LogoutProps = {
+  creds: Credentials
+}
+const LogoutPage = ({ creds }: LogoutProps) => {
+  const logout = useStore(store => store.logout)
+
+  const onLogout = () => {
+    logout()
+    forgetLogin()
+  }
+
+  return (
     <Stack gap={2}>
       <Typography variant='h4' sx={{ mx: 'auto' }}>
-        {`Hello, ${store.username}`}
+        {`Hello, ${creds.username}`}
       </Typography>
       <FormButton onClick={onLogout} fullWidth>
         Logout
       </FormButton>
     </Stack>
   )
+}
+
+export const Login = () => {
+  const storeCreds = useStore(store => store.credentials)
 
   return (
     <Grid container direction='column' alignItems='center' justifyContent='center' sx={{ minHeight: '100vh' }}>
       <Grid xs={12} md={6} lg={3}>
-        <Box sx={{ p: 2 }}>{(store.hasCredentials() && Logout_()) || Login_()}</Box>
+        <Box sx={{ p: 2 }}>{(storeCreds !== null && <LogoutPage creds={storeCreds} />) || <LoginPage />}</Box>
       </Grid>
     </Grid>
   )

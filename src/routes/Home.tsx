@@ -1,36 +1,69 @@
-import * as API from '../api/recard'
-import { useEffect, useState } from 'react'
-import { Box, List, ListItem, Typography } from '@mui/material'
-import { useAuthStore } from '../store/auth'
-import { onShake } from '../api/shake'
+import { Box, Paper, Stack, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import { FormButton } from '../components'
+import { Recard } from '../components/Recard'
+import { useStore } from '../store/store'
+import { Deck } from '../types'
+
+type DeckInfoProps = {
+  deck: Deck
+}
+const DeckInfo = ({ deck }: DeckInfoProps) => {
+  const removeDeck = useStore(store => store.removeDeck)
+
+  const onDelete = async () => {
+    if (!removeDeck(deck.name)) {
+      alert("Couldn't remove deck")
+    }
+  }
+
+  return (
+    <Paper elevation={1}>
+      <Typography>{deck.name}</Typography>
+      <FormButton onClick={onDelete}>Delete</FormButton>
+    </Paper>
+  )
+}
+
+const AddDeck = () => {
+  const [name, setName] = useState('')
+
+  const setDeck = useStore(store => store.setDeck)
+  const saveDecks = useStore(store => store.saveDecks)
+
+  const onSave = async () => {
+    if (!setDeck({ name, cards: [] })) {
+      alert("Coulnd't save deck")
+      return
+    }
+    if (!(await saveDecks())) {
+      alert("Couldn't save decks to storage")
+      return
+    }
+  }
+
+  return (
+    <>
+      <TextField value={name} onChange={({ target }) => setName(target.value)} />
+      <FormButton onClick={onSave}>Save</FormButton>
+    </>
+  )
+}
 
 export const Home = () => {
-  const [decks, setDecks] = useState<string[]>([])
-  useEffect(() => {
-    API.user().then(user => {
-      setDecks(user?.decks || [])
-    })
-  }, [useAuthStore().username])
+  const [name, setName] = useState('')
 
-  useEffect(() => {
-    console.log('starting shake listener')
-    const handle = onShake(() => {})
-    console.log(`shake listener started`, handle !== false)
-    return () => {
-      console.log(`shake listener stopped`, handle !== false)
-      if (handle !== false) handle()
-    }
-  }, [])
+  const decks = useStore(store => store.decks)
+  const creds = useStore(store => store.credentials)
 
   return (
     <Box>
-      <Typography>Home</Typography>
-      <List>
-        // TODO: add button to edit and start learning
-        {decks.map(deck => (
-          <ListItem>{deck}</ListItem>
-        ))}
-      </List>
+      {(creds === null && <Typography>Please log in first</Typography>) || (
+        <>
+          <AddDeck />
+          <Stack gap={1}>{decks !== null && decks.map(deck => <DeckInfo deck={deck} />)}</Stack>
+        </>
+      )}
     </Box>
   )
 }
