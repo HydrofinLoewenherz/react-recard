@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Deck, Home, Learn, Login, Error, Root, deckLoader } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
-import { NavBar } from './components'
 
 const router = createBrowserRouter([
   {

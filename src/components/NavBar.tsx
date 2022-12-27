@@ -7,15 +7,14 @@ const routes = [
   ['/login', 'Login'],
 ]
 
-type NavBarProps = {}
-export const NavBar = (props: NavBarProps) => {
+export const NavBar = () => {
   return (
     <Box>
       <AppBar position='static'>
         <Toolbar>
           <Box sx={{ display: 'flex', columnGap: 1 }}>
-            {routes.map(route => (
-              <Button variant='outlined' component={Link} to={route[0]}>
+            {routes.map((route, i) => (
+              <Button variant='outlined' component={Link} to={route[0]} key={i}>
                 {route[1]}
               </Button>
             ))}

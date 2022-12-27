@@ -1,9 +1,5 @@
-import { useStore } from '../../store/store'
-import SHA256 from 'crypto-js/sha256'
-import AES from 'crypto-js/aes'
-import { isDev } from '../mode'
 import { Deck, DeckList } from '../../types/deck'
-import { RawCredentials, Credentials } from '../../types'
+import { Credentials } from '../../types'
 import { Local, StoreKey, userKey } from '../../store/storage'
 
 export const deckKey = (name: string, cred: Credentials): StoreKey => {

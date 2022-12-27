@@ -1,6 +1,5 @@
-import create from 'zustand'
 import { Deck } from '../types'
-import { DeckSlice, StateCreator, Store } from '../types/store'
+import { DeckSlice, StateCreator } from '../types/store'
 import * as API from '../api/recard'
 
 export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
