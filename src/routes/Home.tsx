@@ -1,8 +1,9 @@
-import { Box, Paper, Stack, TextField, Typography } from '@mui/material'
+import {Box, Button, Paper, Stack, TextField, Typography} from '@mui/material'
 import { useState } from 'react'
 import { FormButton } from '../components'
 import { useStore } from '../store/store'
 import { Deck } from '../types'
+import {Link} from "react-router-dom";
 
 type DeckInfoProps = {
   deck: Deck
@@ -20,6 +21,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
     <Paper elevation={1}>
       <Typography>{deck.name}</Typography>
       <FormButton onClick={onDelete}>Delete</FormButton>
+      <Button variant='outlined' component={Link} to={`/learn/${deck.name}`}>Learn</Button>
     </Paper>
   )
 }

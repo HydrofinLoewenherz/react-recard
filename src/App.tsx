@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import { Deck, Home, Learn, Login, Error, Root, deckLoader } from './routes'
+import {Deck, Home, Learn, Login, Error, Root, deckLoader, learnLoader} from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
 
@@ -31,8 +31,9 @@ const router = createBrowserRouter([
         loader: deckLoader,
       },
       {
-        path: '/learn',
+        path: '/learn/:deckName',
         element: <RequireLogin><Learn /></RequireLogin>,
+        loader: learnLoader,
       },
       {
         path: '/login',
@@ -50,10 +51,7 @@ export const App = () => {
 
   // try to auto log in user on page open
   useEffect(() => {
-    console.log(`checkin login status`)
-
     const tryLogin = async () => {
-      console.log(`trying to auto-login user`)
       const credentials = recallLogin()
       if (!credentials) return false
       return await login(credentials)
