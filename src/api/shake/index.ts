@@ -2,19 +2,27 @@
 export interface ShakeOptions {
   /** ... (in m/s^2) */
   magThreshold: number
+  /** ... (in [0,1]) */
+  dirThreshold: number
   /** ... (in ms) */
   debounce: number
 }
 
 const DefaultShakeOptions: ShakeOptions = {
   magThreshold: 10,
-  debounce: 150,
+  dirThreshold: 0.8,
+  debounce: 300,
 }
+
+/** Supported discrete types of shakes to differentiate between. */
+export type Type = 'shakeLeft' | 'shakeRight'
 
 /** The context in witch a shake happens, hods metadata about the shake. */
 export interface ShakeHandlerContext {
   options: ShakeOptions
   motion: DeviceMotionEvent
+  type?: Type
+  magnitude: number
 }
 
 /** Handles any shake event, with given context of the shake. */
@@ -43,12 +51,14 @@ export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>) 
     const mag = Math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
 
     const currTime = new Date().getTime()
-    if (mag > completeOptions.magThreshold && currTime - lastCallTime > completeOptions.debounce) {
-      console.debug(`detected shake with mag ${mag}`, ev.acceleration)
+    if (mag > completeOptions.magThreshold && (currTime - lastCallTime) > completeOptions.debounce) {
+      //console.debug(`detected shake with mag ${mag}`, ev.acceleration)
       lastCallTime = new Date().getTime()
       handler({
         options: completeOptions,
         motion: ev,
+        type: (Math.abs(acc_x) < (completeOptions.dirThreshold * mag)) ? undefined : (acc_x < 0 ? "shakeLeft" : "shakeRight"),
+        magnitude: mag
       })
     }
   }
