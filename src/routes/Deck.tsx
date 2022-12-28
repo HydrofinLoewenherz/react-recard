@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { useMemo } from 'react'
 import { LoaderFunction, useLoaderData } from 'react-router-dom'
-import { Recard } from '../components/Recard'
+import { Recard } from '../components'
 import { useStore } from '../store/store'
 
 export type DeckParams = {

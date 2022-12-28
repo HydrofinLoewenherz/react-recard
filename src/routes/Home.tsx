@@ -51,16 +51,11 @@ const AddDeck = () => {
 
 export const Home = () => {
   const decks = useStore(store => store.decks)
-  const creds = useStore(store => store.credentials)
 
   return (
     <Box>
-      {(creds === null && <Typography>Please log in first</Typography>) || (
-        <>
-          <AddDeck />
-          <Stack gap={1}>{decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}</Stack>
-        </>
-      )}
+      <AddDeck />
+      <Stack gap={1}>{decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}</Stack>
     </Box>
   )
 }
