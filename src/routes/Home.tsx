@@ -1,10 +1,11 @@
 import {
+  Box,
   Button,
   Card, CardActions,
   CardContent, CardHeader,
   Container, IconButton, ListItemIcon, ListItemText, Menu, MenuItem,
   Stack,
-  TextField,
+  TextField, Typography,
 } from '@mui/material'
 import { MoreVert, Delete, Edit } from '@mui/icons-material';
 import React, { useState } from 'react'
@@ -45,7 +46,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
             >
               <MenuItem
                 component={Link}
-                to={`/deck/${deck.name}`}
+                to={`/edit/${deck.name}`}
               >
                 <ListItemIcon>
                   <Edit />
@@ -70,10 +71,10 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         title={deck.name}
       />
       <CardContent>
-        Stats!
+        -- Deck Stats with Graphs --
       </CardContent>
       <CardActions>
-        <Button variant='outlined' component={Link} to={`/learn/${deck.name}`}>Learn</Button>
+        <Button variant='contained' component={Link} to={`/learn/${deck.name}`}>Learn Cards</Button>
       </CardActions>
     </Card>
   )
@@ -108,8 +109,29 @@ export const Home = () => {
   const decks = useStore(store => store.decks)
 
   return (
-    <Container>
-      <AddDeck />
+    <Container
+      sx={{ my: 4 }}
+    >
+      <Stack
+        sx={{ mb: 2 }}
+        direction={'row'}
+        justifyContent={"space-between"}
+      >
+        <Typography variant={'h3'}>
+          My Decks
+        </Typography>
+        <Box
+          sx={{ mt: 'auto' }}
+        >
+          <Button
+            component={Link}
+            to={`/create`}
+            variant='outlined'
+          >
+            Create Deck
+          </Button>
+        </Box>
+      </Stack>
       <Stack gap={1}>
         {decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}
       </Stack>

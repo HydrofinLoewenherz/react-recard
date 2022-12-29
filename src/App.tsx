@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import {Deck, Home, Learn, Login, Error, Root, deckLoader, learnLoader} from './routes'
+import {Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Create} from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
 
@@ -26,8 +26,12 @@ const router = createBrowserRouter([
         element: <RequireLogin><Home /></RequireLogin>,
       },
       {
-        path: '/deck/:deckName',
-        element: <RequireLogin><Deck /></RequireLogin>,
+        path: '/create',
+        element: <RequireLogin><Create /></RequireLogin>,
+      },
+      {
+        path: '/edit/:deckName',
+        element: <RequireLogin><Edit /></RequireLogin>,
         loader: deckLoader,
       },
       {
