@@ -19,7 +19,6 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <Error />,
-    action: async (ctx) => { console.log(`action`, ctx) },
     children: [
       {
         path: '/',
