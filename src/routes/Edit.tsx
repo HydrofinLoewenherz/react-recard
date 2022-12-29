@@ -83,6 +83,7 @@ export const Edit = () => {
   const params = useLoaderData() as DeckParams
   const findDeck = useStore(store => store.findDeck)
   const setDeck = useStore(store => store.setDeck)
+  const saveDecks = useStore(store => store.saveDecks)
   const deck = useMemo(() => findDeck(params.deckName), [params])
 
   const createNew = () => {
@@ -101,7 +102,7 @@ export const Edit = () => {
     if (deck === null) {
       return
     }
-    deck.cards = deck.cards.splice(index, 1)
+    deck.cards[index] = card
     setDeck(deck)
   }
 
@@ -109,7 +110,7 @@ export const Edit = () => {
     if (deck === null) {
       return
     }
-    delete deck.cards[index]
+    deck.cards.splice(index, 1)
     setDeck(deck)
   }
 
@@ -125,15 +126,18 @@ export const Edit = () => {
                 subheader={
                   <ListSubheader>
                     <Stack direction={"row"} justifyContent={"space-between"}>
-                      <Typography>Cards</Typography>
-                      <Button onClick={createNew}>Create New</Button>
+                      <Typography mt={"auto"} mb={1}>Cards</Typography>
+                      <Box>
+                        <Button variant={"text"} onClick={saveDecks}>Save</Button>
+                        <Button variant={"text"} onClick={createNew}>New</Button>
+                      </Box>
                     </Stack>
                   </ListSubheader>
                 }
               >
                 { deck.cards.map((card, index) =>
                   <EditCard
-                    key={card.name + index}
+                    key={index}
                     value={card}
                     onChange={(value) => handleCardChange(value, index)}
                     onDelete={() => handleCardDelete(index)}
