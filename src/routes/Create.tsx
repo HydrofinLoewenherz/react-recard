@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {FormButton} from '../components'
 import { useStore } from '../store/store'
 import {Link, useNavigate} from "react-router-dom";
+import { v4 as uuid } from 'uuid';
 
 export const Create = () => {
   const navigate = useNavigate()
@@ -12,7 +13,7 @@ export const Create = () => {
   const saveDecks = useStore(store => store.saveDecks)
 
   const onSave = async () => {
-    if (!setDeck({ name, cards: [] })) {
+    if (!setDeck({ id: uuid(), name, cards: [] })) {
       alert("Couldn't save deck")
       return
     }

@@ -44,7 +44,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         result.push(last + (log.success ? 1 : 0))
       }
     })
-    return result.map((res, index) => ({ argument: index, value: Math.round((res / (index || 1)) * 100) }))
+    return result.map((res, index) => ({ argument: index, value: Math.round((res / (index + 1)) * 100) }))
   }, [cardIds, cardLogs])
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
