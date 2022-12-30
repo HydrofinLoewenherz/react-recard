@@ -7,10 +7,8 @@ import { App } from './App'
 const theme = createTheme({ palette: { mode: 'dark' } })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline enableColorScheme />
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline enableColorScheme />
+    <App />
+  </ThemeProvider>,
 )
