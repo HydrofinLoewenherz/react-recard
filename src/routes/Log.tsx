@@ -22,6 +22,13 @@ export const Log = () => {
               </ListItemIcon>
             </ListItem>
           )}
+          { cardLogs.length !== 0 ? undefined :
+            <ListItem>
+              <ListItemText>
+                You currently have no logs
+              </ListItemText>
+            </ListItem>
+          }
         </List>
       </Paper>
     </Container>
