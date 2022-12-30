@@ -19,14 +19,15 @@ type DeckInfoProps = {
 }
 const DeckInfo = ({ deck }: DeckInfoProps) => {
   const removeDeck = useStore(store => store.removeDeck)
+  const cardLogs = useStore(store => store.cardLogs)
 
   const cardIds = useMemo(() => deck.cards.map(c => c.id), [deck])
   const score = useMemo(() => {
-      const logs = useStore().cardLogs
+      const logs = cardLogs
         .filter(l => cardIds.includes(l.cardId))
       return (logs.filter(l => l.success).length / logs.length).toFixed(2)
     },
-    [cardIds, useStore().cardLogs]
+    [cardIds, cardLogs]
   )
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
