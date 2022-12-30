@@ -7,7 +7,7 @@ import {onShake, ShakeHandler} from "../api/shake";
 import {useSwipeable} from "react-swipeable";
 
 export type LearnParams = {
-  deckName: string
+  deckId: string
 }
 
 export const learnLoader: LoaderFunction = (args): LearnParams => {
@@ -17,8 +17,9 @@ export const learnLoader: LoaderFunction = (args): LearnParams => {
 export const Learn = () => {
   const params = useLoaderData() as LearnParams
   const findDeck = useStore(store => store.findDeck)
+  const log = useStore(store => store.log)
 
-  const deck = useMemo(() => findDeck(params.deckName), [params])
+  const deck = useMemo(() => findDeck(params.deckId), [params])
   const [cardIndex, setCardIndex] = useState(0)
   const card = useMemo(() => deck?.cards[cardIndex] || null, [deck, cardIndex])
   const [showAnswer, setShowAnswer] = useState(false)
@@ -63,7 +64,9 @@ export const Learn = () => {
     if (animating) {
       return
     }
-    // TODO log progress
+    if (card !== null) {
+      log(card.id, success)
+    }
     Promise.resolve()
       .then(async () => animating = true)
       .then(async () => setSlideDir(success ? "left" : "right"))

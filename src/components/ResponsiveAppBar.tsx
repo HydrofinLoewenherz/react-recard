@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {Link} from "react-router-dom";
 
-const pages = [{ to: '/', label: 'Home'}];
+const pages = [{ to: '/', label: 'Home' }, { to: '/logs', label: 'Logs' }];
 const settings = [{ to: '/login', label: 'Login / Logout'}];
 
 function ResponsiveAppBar() {

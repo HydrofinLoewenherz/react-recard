@@ -12,13 +12,13 @@ import { LoaderFunction, useLoaderData } from 'react-router-dom'
 import { useStore } from '../store/store'
 import {Card} from "../types";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import {v4 as uuid} from "uuid";
 
 export type DeckParams = {
-  deckName: string
+  deckId: string
 }
 
 export const deckLoader: LoaderFunction = (args): DeckParams => {
-  console.log(args)
   return args.params as DeckParams
 }
 
@@ -84,13 +84,14 @@ export const Edit = () => {
   const findDeck = useStore(store => store.findDeck)
   const setDeck = useStore(store => store.setDeck)
   const saveDecks = useStore(store => store.saveDecks)
-  const deck = useMemo(() => findDeck(params.deckName), [params])
+  const deck = useMemo(() => findDeck(params.deckId), [params])
 
   const createNew = () => {
     if (deck === null) {
       return
     }
     deck.cards.push({
+      id: uuid(),
       name: "New Card",
       answer: "",
       question: ""
@@ -137,7 +138,7 @@ export const Edit = () => {
               >
                 { deck.cards.map((card, index) =>
                   <EditCard
-                    key={index}
+                    key={card.id}
                     value={card}
                     onChange={(value) => handleCardChange(value, index)}
                     onDelete={() => handleCardDelete(index)}

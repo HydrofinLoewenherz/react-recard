@@ -1,6 +1,7 @@
-import { Deck } from '../types'
+import {Deck} from '../types'
 import { DeckSlice, StateCreator } from '../types/store'
 import * as API from '../api/recard'
+import { v4 as uuid } from 'uuid';
 
 export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
   decks: null,
@@ -34,10 +35,13 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     const { decks } = get()
     if (decks === null) return false
 
-    const index = decks.findIndex(deck_ => deck_.name === deck.name)
+    const index = decks.findIndex(deck_ => deck_.id === deck.id)
     if (index === -1) {
       decks.push(deck)
     } else {
+      if (deck.id === undefined) {
+        deck.id = uuid()
+      }
       decks.splice(index, 1, deck)
     }
 
@@ -61,8 +65,8 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     set(state => ({ ...state, decks: decks.slice() }))
     return true
   },
-  findDeck: (name: string): Deck | null => {
+  findDeck: (id: typeof uuid): Deck | null => {
     const { decks } = get()
-    return decks !== null ? decks.find(deck => deck.name === name) ?? null : null
+    return decks !== null ? decks.find(deck => deck.id === id) ?? null : null
   },
 })

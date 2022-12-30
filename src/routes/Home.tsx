@@ -5,11 +5,10 @@ import {
   CardContent, CardHeader,
   Container, IconButton, ListItemIcon, ListItemText, Menu, MenuItem,
   Stack,
-  TextField, Typography,
+  Typography,
 } from '@mui/material'
 import { MoreVert, Delete, Edit } from '@mui/icons-material';
-import React, { useState } from 'react'
-import { FormButton } from '../components'
+import React, {useMemo} from 'react'
 import { useStore } from '../store/store'
 import { Deck } from '../types'
 import { Link } from "react-router-dom";
@@ -20,6 +19,15 @@ type DeckInfoProps = {
 }
 const DeckInfo = ({ deck }: DeckInfoProps) => {
   const removeDeck = useStore(store => store.removeDeck)
+
+  const cardIds = useMemo(() => deck.cards.map(c => c.id), [deck])
+  const score = useMemo(() => {
+      const logs = useStore().cardLogs
+        .filter(l => cardIds.includes(l.cardId))
+      return (logs.filter(l => l.success).length / logs.length).toFixed(2)
+    },
+    [cardIds, useStore().cardLogs]
+  )
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -47,7 +55,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
             >
               <MenuItem
                 component={Link}
-                to={`/edit/${deck.name}`}
+                to={`/edit/${deck.id}`}
               >
                 <ListItemIcon>
                   <Edit />
@@ -72,37 +80,12 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         title={deck.name}
       />
       <CardContent>
-        -- Deck Stats with Graphs --
+        <Typography>Score: {score}</Typography>
       </CardContent>
       <CardActions>
-        <Button variant='contained' component={Link} to={`/learn/${deck.name}`}>Learn Cards</Button>
+        <Button variant='contained' component={Link} to={`/learn/${deck.id}`}>Learn Cards</Button>
       </CardActions>
     </Card>
-  )
-}
-
-const AddDeck = () => {
-  const [name, setName] = useState('')
-
-  const setDeck = useStore(store => store.setDeck)
-  const saveDecks = useStore(store => store.saveDecks)
-
-  const onSave = async () => {
-    if (!setDeck({ name, cards: [] })) {
-      alert("Couldn't save deck")
-      return
-    }
-    if (!(await saveDecks())) {
-      alert("Couldn't save decks to storage")
-      return
-    }
-  }
-
-  return (
-    <>
-      <TextField value={name} onChange={({ target }) => setName(target.value)} />
-      <FormButton onClick={onSave}>Save</FormButton>
-    </>
   )
 }
 
@@ -127,7 +110,7 @@ export const Home = () => {
         Create Deck
       </Button>
       <Stack gap={1}>
-        {decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}
+        {decks !== null && decks.map((deck) => <DeckInfo deck={deck} key={deck.id} />)}
         {!(decks === null || decks.length === 0) ?  '' :
           <Box
             sx={{ display: "flex", flexFlow: "column", justifyContent: "center" }}
