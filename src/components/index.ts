@@ -1,5 +1,5 @@
 export * from './FormButton'
 export * from './Recard'
-export * from './NavBar'
+export * from './ResponsiveAppBar'
 export * from './Header'
 export * from './Footer'
