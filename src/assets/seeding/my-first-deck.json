@@ -1,0 +1,70 @@
+{
+  "name": "My First Deck",
+  "cards": [
+    {
+      "name": "Everything",
+      "question": "Whats the answer to everything?",
+      "answer": "42"
+    },
+    {
+      "name": "Fruity Avocados?",
+      "question": "Are Avocados a fruit?",
+      "answer": "Yes, Avocados are a fruit, not a vegetable."
+    },
+    {
+      "name": "M&M",
+      "question": "What is the rarest M&M color?",
+      "answer": "Brown"
+    },
+    {
+      "name": "Internet",
+      "question": "In a website browser address bar, what does “www” stand for?",
+      "answer": "World Wide Web"
+    },
+    {
+      "name": "Sneakers",
+      "question": "In what year were the first Air Jordan sneakers released?",
+      "answer": "1984"
+    },
+    {
+      "name": "Bingo",
+      "question": "In a bingo game, which number is represented by the phrase \"two little ducks\"?",
+      "answer": "22"
+    },
+    {
+      "name": "Greek mythology",
+      "question": "According to Greek mythology, who was the first woman on earth?",
+      "answer": "Pandora"
+    },
+    {
+      "name": "U.S. presidential candidates",
+      "question": "Samuel Tilden, Grover Cleveland, Al Gore, and Hillary Clinton share what distinction among U.S. presidential candidates?",
+      "answer": "They won the popular vote but lost the electoral college vote"
+    },
+    {
+      "name": "Abyssinia",
+      "question": "Which African country was formerly known as Abyssinia?",
+      "answer": "Ethiopia"
+    },
+    {
+      "name": "Tennis",
+      "question": "Tennis star Serena Williams won which major tournament while pregnant with her first child?",
+      "answer": "The Australian Open"
+    },
+    {
+      "name": "Airports",
+      "question": "In which European city would you find Orly airport?",
+      "answer": "Paris"
+    },
+    {
+      "name": "Singer",
+      "question": "Which singer’s real name is Stefani Joanne Angelina Germanotta?",
+      "answer": "Lady Gaga"
+    },
+    {
+      "name": "Animal Kingdom",
+      "question": "The only known monotremes in the animal kingdom are the echidna and which other creature?",
+      "answer": "The platypus"
+    }
+  ]
+}

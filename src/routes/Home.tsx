@@ -13,6 +13,7 @@ import { FormButton } from '../components'
 import { useStore } from '../store/store'
 import { Deck } from '../types'
 import { Link } from "react-router-dom";
+import ExampleDeck from "../assets/seeding/my-first-deck.json"
 
 type DeckInfoProps = {
   deck: Deck
@@ -107,6 +108,11 @@ const AddDeck = () => {
 
 export const Home = () => {
   const decks = useStore(store => store.decks)
+  const setDeck = useStore(store => store.setDeck)
+
+  const seed = () => {
+    setDeck(ExampleDeck)
+  }
 
   return (
     <Container
@@ -122,6 +128,14 @@ export const Home = () => {
       </Button>
       <Stack gap={1}>
         {decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}
+        {!(decks === null || decks.length === 0) ?  '' :
+          <Box
+            sx={{ display: "flex", flexFlow: "column", justifyContent: "center" }}
+          >
+            <Typography>You have no decks</Typography>
+            <Button onClick={seed}>Add Example Deck</Button>
+          </Box>
+        }
       </Stack>
     </Container>
   )
