@@ -112,26 +112,14 @@ export const Home = () => {
     <Container
       sx={{ my: 4 }}
     >
-      <Stack
-        sx={{ mb: 2 }}
-        direction={'row'}
-        justifyContent={"space-between"}
+      <Button
+        sx={{ m: 1, ml: 'auto' }}
+        component={Link}
+        to={`/create`}
+        variant='outlined'
       >
-        <Typography variant={'h3'}>
-          My Decks
-        </Typography>
-        <Box
-          sx={{ mt: 'auto' }}
-        >
-          <Button
-            component={Link}
-            to={`/create`}
-            variant='outlined'
-          >
-            Create Deck
-          </Button>
-        </Box>
-      </Stack>
+        Create Deck
+      </Button>
       <Stack gap={1}>
         {decks !== null && decks.map((deck, i) => <DeckInfo deck={deck} key={i} />)}
       </Stack>

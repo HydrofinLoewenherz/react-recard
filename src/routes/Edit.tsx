@@ -42,7 +42,7 @@ const EditCard = ({ value: card, onChange, onDelete }: EditCardProps) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <Box m={1}>
+        <Box m={2}>
           <Grid container spacing={2} columns={2}>
             <Grid item>
               <TextField

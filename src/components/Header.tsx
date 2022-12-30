@@ -1,5 +1,5 @@
-import { NavBar } from './NavBar'
+import ResponsiveAppBar from "./ResponsiveAppBar";
 
 export const Header = () => {
-  return <NavBar />
+  return <ResponsiveAppBar />
 }
