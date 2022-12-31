@@ -1,13 +1,15 @@
-import { ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { Box, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
+import React, { Suspense, useMemo, useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useStore } from '../store/store'
-import { FormButton } from '../components/FormButton'
+import { FormButton } from '../components'
 import { addNewUser, forgetLogin, rememberLogin, userExists } from '../store/user_storage'
 import { toSafeCredentials } from '../store/storage'
 import { Credentials } from '../types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import InputAdornment from '@mui/material/InputAdornment'
+
+const PasswordStrengthBar = React.lazy(() => import('react-password-strength-bar'))
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -43,30 +45,54 @@ const LoginPage = () => {
   }
   const onToggleShowPassword = () => setShowPassword(show => !show)
 
-  const validPassword = password !== '' && /\d{2,}/i.test(password)
-  const validInput = username !== '' && validPassword
+  const [validPassword, setValidPassword] = useState(false)
+  const [helperText, setHelperText] = useState<string | undefined>(undefined)
+  const validUsername = useMemo(() => (username?.length || 0) >= 5, [username])
+  const validInput = useMemo(() => username !== '' && validPassword, [username, validPassword])
 
   return (
     <Stack gap={2}>
       <Typography variant='h4' sx={{ mx: 'auto' }}>
         Login
       </Typography>
-      <TextField value={username} onChange={({ target }) => setUsername(target.value)} label='Username' />
       <TextField
-        value={password}
-        onChange={({ target }) => setPassword(target.value)}
-        label='Password'
-        type={showPassword ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='end'>
-              <IconButton onClick={onToggleShowPassword} edge='end'>
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
+        value={username}
+        onChange={({ target }) => setUsername(target.value)}
+        label='Username'
+        error={!validUsername}
+        helperText={!validUsername && 'Must be at least 5 characters'}
+        required
       />
+      <Box>
+        <TextField
+          fullWidth
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          label='Password'
+          type={showPassword ? 'text' : 'password'}
+          helperText={helperText}
+          error={!validPassword}
+          required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton onClick={onToggleShowPassword} edge='end'>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Suspense>
+          <PasswordStrengthBar
+            password={password}
+            onChangeScore={(score, feedback) => {
+              setValidPassword(score > 1 && !feedback.warning)
+              setHelperText(feedback.warning || undefined)
+            }}
+          />
+        </Suspense>
+      </Box>
       <ButtonGroup>
         <FormButton onClick={onLogin} fullWidth disabled={!validInput}>
           Login

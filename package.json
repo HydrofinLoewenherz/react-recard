@@ -10,8 +10,8 @@
     "preview": "vite preview",
     "fmt": "prettier --end-of-line auto --write .",
     "lint": "eslint src/**",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@devexpress/dx-react-chart": "^4.0.2",
@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-latex": "^2.0.0",
+    "react-password-strength-bar": "^0.4.1",
     "react-router-dom": "^6.6.0",
     "react-swipeable": "^7.0.0",
     "sort-by": "^1.2.0",

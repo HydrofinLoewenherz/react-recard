@@ -8,6 +8,7 @@ The app keeps track of the learning progress and shows responsive graphs for it.
 Every feature of the app has a person responsible for it. This person created most or all of it.
 
 - Multi-user authentication
+- Password and username strength checker
 - User creation
 - User sessions
 - Deck save in Localstorage
