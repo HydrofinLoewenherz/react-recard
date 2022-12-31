@@ -149,5 +149,6 @@ The project was created by [Rico (uozjn)][rico-github] and [Paul Wagner (ujhtl)]
 The app icon is the Material-UI `Styles` icon. We do not own that icon, it is simply the chosen placeholder for this app
 as it is not used commercially.
 
+[lighthouse]: https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=de 'lighthouse extension'
 [paul-github]: https://github.com/HydrofinLoewenherz 'ujhtl'
 [rico-github]: https://github.com/cryeprecision 'uozjn'
