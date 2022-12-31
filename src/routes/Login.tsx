@@ -75,7 +75,7 @@ const LoginPage = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
-                <IconButton onClick={onToggleShowPassword} edge='end'>
+                <IconButton onClick={onToggleShowPassword} edge='end' aria-label='show password'>
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
