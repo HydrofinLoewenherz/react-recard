@@ -145,7 +145,7 @@ Every feature of the app has a person responsible for it. This person created mo
 
 ## Authors
 
-The project was created by [Rico (uozjn)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
+The project was created by [Rico Münch (uozjn)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
 
 ## Notes
 
