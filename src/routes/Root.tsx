@@ -4,7 +4,7 @@ import { Footer, Header } from '../components'
 
 export const Root = (): JSX.Element => {
   return (
-    <Box>
+    <Box id={'recard-root'}>
       <Header />
 
       {/* This where the child-elements are placed */}

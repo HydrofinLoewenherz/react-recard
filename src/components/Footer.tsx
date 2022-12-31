@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const Footer = () => {
   return (
-    <Box position={'fixed'} bottom={0} width={'100%'}>
+    <Box>
       <Paper sx={{ p: 2 }} square>
         <Typography>
           Created by <Link to={'https://github.com/cryeprecision'}>Rico Münch (uozjn)</Link> and{' '}

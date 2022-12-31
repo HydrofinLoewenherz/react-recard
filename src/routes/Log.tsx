@@ -7,8 +7,8 @@ export const Log = () => {
   const cardLogs = useStore(store => store.cardLogs)
 
   return (
-    <Container>
-      <Paper sx={{ my: 4 }}>
+    <Container sx={{ my: 4 }}>
+      <Paper>
         <List>
           {cardLogs.map((log, i) => (
             <ListItem key={i}>
