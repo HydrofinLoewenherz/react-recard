@@ -66,7 +66,7 @@ export const Learn = () => {
       return
     }
     if (card !== null) {
-      log(card.id, success)
+      log(deck!.id, card.id, success)
     }
     Promise.resolve()
       .then(async () => (animating = true))

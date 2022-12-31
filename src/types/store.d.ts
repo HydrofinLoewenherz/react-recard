@@ -22,7 +22,7 @@ export interface DeckSlice {
 
 export interface LogSlice {
   cardLogs: CardLog[]
-  log: (cardId: uuid, success: boolean) => boolean
+  log: (deckId: uuid, cardId: uuid, success: boolean) => boolean
 }
 
 export interface ThemeSlice {

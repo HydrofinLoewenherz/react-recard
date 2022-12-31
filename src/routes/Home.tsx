@@ -42,14 +42,16 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
   const cardIds = useMemo(() => deck.cards.map(c => c.id), [deck])
   const graphData = useMemo(() => {
     const successes: number[] = []
-    cardLogs.forEach(log => {
-      if (successes.length === 0) {
-        successes.push(log.success ? 1 : 0)
-      } else {
-        const last = successes[successes.length - 1]
-        successes.push(last + (log.success ? 1 : 0))
-      }
-    })
+    cardLogs
+      .filter(log => log.deckId === deck.id)
+      .forEach(log => {
+        if (successes.length === 0) {
+          successes.push(log.success ? 1 : 0)
+        } else {
+          const last = successes[successes.length - 1]
+          successes.push(last + (log.success ? 1 : 0))
+        }
+      })
     return successes.map((res, index) => ({ argument: index + 1, value: Math.round((res / (index + 1)) * 100) }))
   }, [cardIds, cardLogs])
 
