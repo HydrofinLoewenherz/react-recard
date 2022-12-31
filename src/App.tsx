@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import { Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Log } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
@@ -16,7 +16,7 @@ const RequireLogin: FC<{ children: React.ReactElement }> = ({ children }) => {
   return children
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Root />,
