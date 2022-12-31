@@ -1,15 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Log } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
 import { CssBaseline } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { LoginRedirect } from './components/LoginRedirect'
 
 const RequireLogin = ({ children }: { children: React.ReactElement }) => {
   const isLoggedIn = useStore(store => store.isLoggedIn)
-  return isLoggedIn() ? children : <LoginRedirect />
+  return isLoggedIn() ? children : <Navigate replace to='/login' />
 }
 
 const router = createHashRouter([
