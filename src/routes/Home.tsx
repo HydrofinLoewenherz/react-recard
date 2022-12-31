@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Card,
   CardActions,
   CardContent,
@@ -97,7 +98,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         )}
       </CardContent>
       <CardActions>
-        <Button variant='contained' component={Link} to={`/learn/${deck.id}`}>
+        <Button variant='contained' component={Link} to={`/learn/${deck.id}`} sx={{ mx: 'auto' }}>
           Learn Cards
         </Button>
       </CardActions>
@@ -130,19 +131,23 @@ const CreateDeck = () => {
   }
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <Stack gap={2}>
-        <TextField label={'Deck Name'} value={name} onChange={({ target }) => setName(target.value)} />
-        <Stack gap={1} direction={'row'} sx={{ mx: 'auto' }}>
+    <Card>
+      <CardContent>
+        <Stack gap={2}>
+          <TextField label={'Deck Name'} value={name} onChange={({ target }) => setName(target.value)} />
+        </Stack>
+      </CardContent>
+      <CardActions>
+        <ButtonGroup sx={{ mx: 'auto' }}>
           <FormButton variant={'contained'} onClick={onSave} disabled={name.length < 3}>
             Save
           </FormButton>
           <Button variant='outlined' onClick={onCancel} disabled={name.length === 0}>
             Cancel
           </Button>
-        </Stack>
-      </Stack>
-    </Paper>
+        </ButtonGroup>
+      </CardActions>
+    </Card>
   )
 }
 
