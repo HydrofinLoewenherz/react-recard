@@ -70,8 +70,8 @@ export const Learn = () => {
     if (animating) {
       return
     }
-    if (card !== null) {
-      log(deck!.id, card.id, success)
+    if (deck !== null && card !== null) {
+      log(deck.id, card.id, success)
     }
     Promise.resolve()
       .then(async () => (animating = true))
@@ -106,7 +106,7 @@ export const Learn = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <ButtonGroup>
           <Button onClick={() => nextCard(false)} startIcon={<ArrowBack />}>
-            What's that?
+            {"What's that?"}
           </Button>
           <Button onClick={() => setShowAnswer(v => !v)}>{showAnswer ? 'Hide' : 'Show'} Answer</Button>
           <Button onClick={() => nextCard(true)} endIcon={<ArrowForward />}>
@@ -116,8 +116,9 @@ export const Learn = () => {
       </Box>
 
       <Typography sx={{ textAlign: 'center', mt: 4 }}>
-        Swipe or Shake to the left or right to get the next card. Left meaning, that you didn't kew the answer and right that you did know
-        it.
+        {
+          "Swipe or Shake to the left or right to get the next card. Left meaning, that you didn't kew the answer and right that you did know it."
+        }
       </Typography>
     </Container>
   )
