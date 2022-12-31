@@ -1,7 +1,7 @@
-import {Deck} from '../types'
+import { Deck } from '../types'
 import { DeckSlice, StateCreator } from '../types/store'
 import * as API from '../api/recard'
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
   decks: null,

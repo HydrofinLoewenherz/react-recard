@@ -51,14 +51,14 @@ export function onShake(handler: ShakeHandler, options?: Partial<ShakeOptions>) 
     const mag = Math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
 
     const currTime = new Date().getTime()
-    if (mag > completeOptions.magThreshold && (currTime - lastCallTime) > completeOptions.debounce) {
+    if (mag > completeOptions.magThreshold && currTime - lastCallTime > completeOptions.debounce) {
       //console.debug(`detected shake with mag ${mag}`, ev.acceleration)
       lastCallTime = new Date().getTime()
       handler({
         options: completeOptions,
         motion: ev,
-        type: (Math.abs(acc_x) < (completeOptions.dirThreshold * mag)) ? undefined : (acc_x < 0 ? "shakeLeft" : "shakeRight"),
-        magnitude: mag
+        type: Math.abs(acc_x) < completeOptions.dirThreshold * mag ? undefined : acc_x < 0 ? 'shakeLeft' : 'shakeRight',
+        magnitude: mag,
       })
     }
   }

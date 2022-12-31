@@ -1,4 +1,4 @@
-import ResponsiveAppBar from "./ResponsiveAppBar";
+import ResponsiveAppBar from './ResponsiveAppBar'
 
 export const Header = () => {
   return <ResponsiveAppBar />

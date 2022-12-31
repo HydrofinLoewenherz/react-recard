@@ -1,10 +1,11 @@
-import {Box, Button, ButtonGroup, Container, Slide, Typography} from '@mui/material'
-import {LoaderFunction, useLoaderData} from "react-router-dom";
-import {useStore} from "../store/store";
-import React, {useEffect, useMemo, useState} from "react";
-import {Recard} from "../components";
-import {onShake, ShakeHandler} from "../api/shake";
-import {useSwipeable} from "react-swipeable";
+import { Box, Button, ButtonGroup, Container, Slide, Typography } from '@mui/material'
+import { LoaderFunction, useLoaderData } from 'react-router-dom'
+import { useStore } from '../store/store'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Recard } from '../components'
+import { onShake, ShakeHandler } from '../api/shake'
+import { useSwipeable } from 'react-swipeable'
+import { ArrowBack, ArrowForward } from '@mui/icons-material'
 
 export type LearnParams = {
   deckId: string
@@ -24,8 +25,8 @@ export const Learn = () => {
   const card = useMemo(() => deck?.cards[cardIndex] || null, [deck, cardIndex])
   const [showAnswer, setShowAnswer] = useState(false)
   const [showCard, setShowCard] = useState(true)
-  const [slideDir, setSlideDir] = useState<"left" | "right" | "up">("up")
-  const slideContainerRef = React.useRef(null);
+  const [slideDir, setSlideDir] = useState<'left' | 'right' | 'up'>('up')
+  const slideContainerRef = React.useRef(null)
   let animating = false
 
   // shake event listener
@@ -39,23 +40,23 @@ export const Learn = () => {
     if (animating) {
       return
     }
-    if (type !== "shakeRight" && type !== "shakeLeft") {
+    if (type !== 'shakeRight' && type !== 'shakeLeft') {
       // toggle show answer
       setShowAnswer(v => !v)
       return
     }
-    nextCard(type === "shakeRight")
+    nextCard(type === 'shakeRight')
   }
 
   // swipe event listener (https://github.com/FormidableLabs/react-swipeable)
   const handlers = useSwipeable({
-    onSwiped: (eventData) => {
-      if (eventData.dir !== "Left" && eventData.dir !== "Right") {
+    onSwiped: eventData => {
+      if (eventData.dir !== 'Left' && eventData.dir !== 'Right') {
         return
       }
-      nextCard(eventData.dir === "Right")
-    }
-  });
+      nextCard(eventData.dir === 'Right')
+    },
+  })
 
   const timeout = (delay: number) => new Promise(res => setTimeout(res, delay))
   // shows the next card with a swipe animation
@@ -68,45 +69,44 @@ export const Learn = () => {
       log(card.id, success)
     }
     Promise.resolve()
-      .then(async () => animating = true)
-      .then(async () => setSlideDir(success ? "left" : "right"))
+      .then(async () => (animating = true))
+      .then(async () => setSlideDir(success ? 'left' : 'right'))
       .then(async () => setShowCard(false))
       .then(async () => await timeout(200))
       .then(async () => setShowAnswer(false))
       .then(async () => setCardIndex(i => (i + 1) % (deck?.cards.length || 0)))
       .then(async () => await timeout(200))
-      .then(async () => setSlideDir("up"))
+      .then(async () => setSlideDir('up'))
       .then(async () => setShowCard(true))
       .then(async () => await timeout(200))
-      .finally(async () => animating = false)
+      .finally(async () => (animating = false))
   }
 
   return (
-    <Container
-      {...handlers}
-      sx={{mt: 4}}
-    >
+    <Container {...handlers} sx={{ mt: 4 }}>
       <Typography variant='h3'>{deck?.name ?? 'deck not found'}</Typography>
-      <Box
-        sx={{ overflow: "hidden", mt: 4 }}
-        ref={slideContainerRef}
-      >
-        <Slide
-          direction={slideDir}
-          in={showCard}
-        >
+      <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
+        <Slide direction={slideDir} in={showCard}>
           <Box>
-            <Recard onClick={() => setShowAnswer(v => !v)} showAnswer={showAnswer} question={card?.question ?? '-'} answer={card?.answer ?? '-'} />
+            <Recard
+              onClick={() => setShowAnswer(v => !v)}
+              showAnswer={showAnswer}
+              question={card?.question ?? '-'}
+              answer={card?.answer ?? '-'}
+            />
           </Box>
         </Slide>
       </Box>
 
-      <Box
-        sx={{display: "flex", justifyContent: "center", mt: 2}}
-      >
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <ButtonGroup>
-          <Button onClick={() => nextCard(false)}>What's that?</Button>
-          <Button onClick={() => nextCard(true)}>I know that!</Button>
+          <Button onClick={() => nextCard(false)} startIcon={<ArrowBack />}>
+            What's that?
+          </Button>
+          <Button onClick={() => setShowAnswer(v => !v)}>{showAnswer ? 'Hide' : 'Show'} Answer</Button>
+          <Button onClick={() => nextCard(true)} endIcon={<ArrowForward />}>
+            I know that!
+          </Button>
         </ButtonGroup>
       </Box>
     </Container>

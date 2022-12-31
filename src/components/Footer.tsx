@@ -1,8 +1,5 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 export const Footer = () => {
-  return (
-    <Box mt={"auto"}>
-    </Box>
-  )
+  return <Box mt={'auto'}></Box>
 }

@@ -1,5 +1,5 @@
-import {LogSlice, StateCreator} from "../types/store";
-import {v4 as uuid} from "uuid";
+import { LogSlice, StateCreator } from '../types/store'
+import { v4 as uuid } from 'uuid'
 
 export const createLogSlice: StateCreator<LogSlice> = (set, get) => ({
   cardLogs: [],
@@ -8,9 +8,9 @@ export const createLogSlice: StateCreator<LogSlice> = (set, get) => ({
     cardLogs.push({
       cardId,
       time: new Date().getTime(),
-      success
+      success,
     })
     set(state => ({ ...state, cardLogs }))
     return true
-  }
+  },
 })

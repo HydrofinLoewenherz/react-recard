@@ -1,6 +1,6 @@
-import React, {FC, useEffect} from 'react'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import {Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Create, Log} from './routes'
+import React, { FC, useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Log } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
 
@@ -11,8 +11,8 @@ const RequireLogin: FC<{ children: React.ReactElement }> = ({ children }) => {
   if (!isLoggedIn) {
     return <Login />
   }
-  return children;
-};
+  return children
+}
 
 const router = createBrowserRouter([
   {
@@ -22,25 +22,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <RequireLogin><Home /></RequireLogin>,
-      },
-      {
-        path: '/create',
-        element: <RequireLogin><Create /></RequireLogin>,
+        element: (
+          <RequireLogin>
+            <Home />
+          </RequireLogin>
+        ),
       },
       {
         path: '/edit/:deckId',
-        element: <RequireLogin><Edit /></RequireLogin>,
+        element: (
+          <RequireLogin>
+            <Edit />
+          </RequireLogin>
+        ),
         loader: deckLoader,
       },
       {
         path: '/learn/:deckId',
-        element: <RequireLogin><Learn /></RequireLogin>,
+        element: (
+          <RequireLogin>
+            <Learn />
+          </RequireLogin>
+        ),
         loader: learnLoader,
       },
       {
         path: '/logs',
-        element: <RequireLogin><Log /></RequireLogin>,
+        element: (
+          <RequireLogin>
+            <Log />
+          </RequireLogin>
+        ),
       },
       {
         path: '/login',
@@ -65,7 +77,7 @@ export const App = () => {
     }
 
     if (!isLoggedIn()) {
-      tryLogin().then((success) => {
+      tryLogin().then(success => {
         if (success) {
           console.log(`auto-login success, logged in as ${store.credentials?.username}`)
         }

@@ -1,18 +1,24 @@
 import {
-  Box, Button, Collapse,
-  Container, Grid, List,
+  Box,
+  Button,
+  Collapse,
+  Container,
+  Grid,
+  List,
   ListItemButton,
-  ListItemText, ListSubheader,
-  Paper, Stack,
+  ListItemText,
+  ListSubheader,
+  Paper,
+  Stack,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material'
 import React, { useMemo } from 'react'
 import { LoaderFunction, useLoaderData } from 'react-router-dom'
 import { useStore } from '../store/store'
-import {Card} from "../types";
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import {v4 as uuid} from "uuid";
+import { Card } from '../types'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { v4 as uuid } from 'uuid'
 
 export type DeckParams = {
   deckId: string
@@ -29,11 +35,11 @@ interface EditCardProps {
 }
 
 const EditCard = ({ value: card, onChange, onDelete }: EditCardProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   const handleClick = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   return (
     <>
@@ -41,25 +47,19 @@ const EditCard = ({ value: card, onChange, onDelete }: EditCardProps) => {
         <ListItemText primary={card.name} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={open} timeout='auto' unmountOnExit>
         <Box m={2}>
           <Grid container spacing={2} columns={2}>
             <Grid item>
-              <TextField
-                label={"Card Name"}
-                value={card.name}
-                onChange={({ target }) => onChange({ ...card, name: target.value })}
-              />
+              <TextField label={'Card Name'} value={card.name} onChange={({ target }) => onChange({ ...card, name: target.value })} />
             </Grid>
-            <Grid item ml={"auto"} my={"auto"}>
-              <Button onClick={onDelete}>
-                Delete
-              </Button>
+            <Grid item ml={'auto'} my={'auto'}>
+              <Button onClick={onDelete}>Delete</Button>
             </Grid>
             <Grid item xs={2}>
               <TextField
                 fullWidth
-                label={"Card Question"}
+                label={'Card Question'}
                 value={card.question}
                 onChange={({ target }) => onChange({ ...card, question: target.value })}
               />
@@ -67,7 +67,7 @@ const EditCard = ({ value: card, onChange, onDelete }: EditCardProps) => {
             <Grid item xs={2}>
               <TextField
                 fullWidth
-                label={"Card Answer"}
+                label={'Card Answer'}
                 value={card.answer}
                 onChange={({ target }) => onChange({ ...card, answer: target.value })}
               />
@@ -92,9 +92,9 @@ export const Edit = () => {
     }
     deck.cards.push({
       id: uuid(),
-      name: "New Card",
-      answer: "",
-      question: ""
+      name: 'New Card',
+      answer: '',
+      question: '',
     })
     setDeck(deck)
   }
@@ -116,38 +116,43 @@ export const Edit = () => {
   }
 
   return (
-    <Container
-      sx={{ my: 4 }}
-    >
-      {
-        deck === null ? <Typography variant='h3'>Deck Not found</Typography> :
-          <Box>
-            <Paper>
-              <List
-                subheader={
-                  <ListSubheader>
-                    <Stack direction={"row"} justifyContent={"space-between"}>
-                      <Typography mt={"auto"} mb={1}>Cards</Typography>
-                      <Box>
-                        <Button variant={"text"} onClick={saveDecks}>Save</Button>
-                        <Button variant={"text"} onClick={createNew}>New</Button>
-                      </Box>
-                    </Stack>
-                  </ListSubheader>
-                }
-              >
-                { deck.cards.map((card, index) =>
-                  <EditCard
-                    key={card.id}
-                    value={card}
-                    onChange={(value) => handleCardChange(value, index)}
-                    onDelete={() => handleCardDelete(index)}
-                  />
-                )}
-              </List>
-            </Paper>
-          </Box>
-      }
+    <Container sx={{ my: 4 }}>
+      {deck === null ? (
+        <Typography variant='h3'>Deck Not found</Typography>
+      ) : (
+        <Box>
+          <Paper>
+            <List
+              subheader={
+                <ListSubheader>
+                  <Stack direction={'row'} justifyContent={'space-between'}>
+                    <Typography mt={'auto'} mb={1}>
+                      Cards
+                    </Typography>
+                    <Box>
+                      <Button variant={'text'} onClick={saveDecks}>
+                        Save
+                      </Button>
+                      <Button variant={'text'} onClick={createNew}>
+                        New
+                      </Button>
+                    </Box>
+                  </Stack>
+                </ListSubheader>
+              }
+            >
+              {deck.cards.map((card, index) => (
+                <EditCard
+                  key={card.id}
+                  value={card}
+                  onChange={value => handleCardChange(value, index)}
+                  onDelete={() => handleCardDelete(index)}
+                />
+              ))}
+            </List>
+          </Paper>
+        </Box>
+      )}
     </Container>
   )
 }
