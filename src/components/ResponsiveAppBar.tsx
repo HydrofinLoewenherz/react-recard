@@ -13,11 +13,11 @@ import MenuItem from '@mui/material/MenuItem'
 import { Link } from 'react-router-dom'
 import { useStore } from '../store/store'
 import { ListItemIcon, ListItemText } from '@mui/material'
-import { AutoMode, DarkMode, LightMode, Login, Person, Settings, Style } from '@mui/icons-material'
+import { AutoMode, Book, DarkMode, Home, LightMode, Login, Person, Settings, Style } from '@mui/icons-material'
 
 const pages = [
-  { to: '/', label: 'Home' },
-  { to: '/logs', label: 'Logs' },
+  { to: '/', label: 'Home', icon: <Home /> },
+  { to: '/logs', label: 'Logs', icon: <Book /> },
 ]
 const settings = [{ to: '/login', label: 'Login / Logout' }]
 
@@ -95,10 +95,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map(page => (
-                <MenuItem key={page.to} onClick={handleCloseNavMenu}>
-                  <Button component={Link} to={page.to}>
-                    {page.label}
-                  </Button>
+                <MenuItem component={Link} to={page.to} key={page.to} onClick={handleCloseNavMenu}>
+                  <ListItemIcon>{page.icon}</ListItemIcon>
+                  <ListItemText>{page.label}</ListItemText>
                 </MenuItem>
               ))}
             </Menu>
@@ -124,11 +123,12 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
               <Button
+                startIcon={page.icon}
                 key={page.to}
                 component={Link}
                 to={page.to}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, mx: 1, color: 'white' }}
               >
                 {page.label}
               </Button>
