@@ -25,6 +25,12 @@ export interface LogSlice {
   log: (cardId: uuid, success: boolean) => boolean
 }
 
-export type Store = AuthSlice & DeckSlice & LogSlice
+export interface ThemeSlice {
+  themeMode: PaletteMode | 'auto'
+  toggleThemeMode: () => void
+  setThemeMode: (themeMode: PaletteMode | 'auto') => void
+}
+
+export type Store = AuthSlice & DeckSlice & LogSlice & ThemeSlice
 
 export type StateCreator<T> = StateCreator_<Store, [], [], T>

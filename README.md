@@ -24,6 +24,8 @@ Every feature of the app has a person responsible for it. This person created mo
 - Responsive Appbar
 - Initial seeding of decks and cards
 - Responsive and reactive Card-UI
+- Themes (auto-/light-/darkmode) support
+- Support `prefers-color-scheme` for themes
 
 ## Authors
 

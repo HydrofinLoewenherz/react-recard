@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
+import { useStore } from '../store/store'
+import { ListItemIcon, ListItemText } from '@mui/material'
+import { AutoMode, DarkMode, LightMode, Login, Person } from '@mui/icons-material'
 
 const pages = [
   { to: '/', label: 'Home' },
@@ -21,6 +24,10 @@ const pages = [
 const settings = [{ to: '/login', label: 'Login / Logout' }]
 
 function ResponsiveAppBar() {
+  const toggleTheme = useStore(store => store.toggleThemeMode)
+  const theme = useStore(store => store.themeMode)
+  const isLoggedIn = useStore(state => state.credentials !== null)
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
@@ -153,12 +160,29 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map(setting => (
-                <MenuItem key={setting.to} onClick={handleCloseUserMenu}>
-                  <Button component={Link} to={setting.to}>
-                    {setting.label}
-                  </Button>
+                <MenuItem component={Link} key={setting.to} to={setting.to} onClick={handleCloseUserMenu}>
+                  <ListItemIcon>{isLoggedIn ? <Person /> : <Login />}</ListItemIcon>
+                  <ListItemText>{isLoggedIn ? 'Profile' : 'Login'}</ListItemText>
                 </MenuItem>
               ))}
+
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu()
+                  toggleTheme()
+                }}
+              >
+                <ListItemIcon>
+                  {theme === 'light' && <DarkMode />}
+                  {theme === 'dark' && <AutoMode />}
+                  {theme === 'auto' && <LightMode />}
+                </ListItemIcon>
+                <ListItemText>
+                  {theme === 'light' && 'Dark Mode'}
+                  {theme === 'dark' && 'Auto Mode'}
+                  {theme === 'auto' && 'Light Mode'}
+                </ListItemText>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

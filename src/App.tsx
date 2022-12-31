@@ -1,8 +1,10 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Log } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
+import { CssBaseline } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 // shows the component children if logged in, otherwise the login page
 // see https://stackoverflow.com/a/68777827/10619052
@@ -85,5 +87,31 @@ export const App = () => {
     }
   }, [])
 
-  return <RouterProvider router={router} />
+  // handle responsive page theme
+  const themeMode = useStore().themeMode
+  const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('light')
+  // create theme based on set theme mode and system preferred scheme
+  const theme = useMemo(() => {
+    const mode = themeMode === 'auto' ? systemTheme : themeMode
+    return createTheme({ palette: { mode: mode } })
+  }, [themeMode, systemTheme])
+  // auto detect preferred color scheme
+  useEffect(() => {
+    if (!window.matchMedia) {
+      return
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setSystemTheme('dark')
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setSystemTheme(event.matches ? 'dark' : 'light')
+    })
+  }, [])
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  )
 }
