@@ -13,5 +13,5 @@ export type Deck = {
   cards: Card[]
 }
 
-/** A list of deck-names */
+/** A list of deck-ids */
 export type DeckList = string[]

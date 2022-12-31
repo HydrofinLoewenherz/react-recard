@@ -9,13 +9,13 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     const { credentials } = get()
     if (credentials === null) return false
 
-    const deckNames = await API.deckList(credentials)
-    if (deckNames === null) {
+    const deckIds = await API.deckList(credentials)
+    if (deckIds === null) {
       set(state => ({ ...state, decks: [] }))
       return true
     }
 
-    const decks_ = await Promise.all(deckNames.map(name => API.deck(name, credentials)))
+    const decks_ = await Promise.all(deckIds.map(id => API.deck(id, credentials)))
     const decks = decks_.filter(deck => deck !== null) as Deck[]
 
     set(state => ({ ...state, decks }))
@@ -25,9 +25,9 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     const { decks, credentials } = get()
     if (decks === null || credentials === null) return false
 
-    const names = decks.reduce<string[]>((acc, next) => [...acc, next.name], [])
-    await API.setDeckList(names, credentials)
-    await Promise.all(decks.map(deck => API.setDeck(deck.name, credentials, deck)))
+    const ids = decks.reduce<string[]>((acc, next) => [...acc, next.id], [])
+    await API.setDeckList(ids, credentials)
+    await Promise.all(decks.map(deck => API.setDeck(deck.id, credentials, deck)))
 
     return true
   },
