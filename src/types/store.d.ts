@@ -23,6 +23,8 @@ export interface DeckSlice {
 export interface LogSlice {
   cardLogs: CardLog[]
   log: (deckId: uuid, cardId: uuid, success: boolean) => boolean
+  saveLogs: () => Promise<boolean>
+  loadLogs: () => Promise<boolean>
 }
 
 export interface ThemeSlice {
