@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://HydrofinLoewenherz.github.io/react-recard",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "fmt": "prettier --end-of-line auto --write .",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist"
   },
   "dependencies": {
     "@devexpress/dx-react-chart": "^4.0.2",
@@ -44,6 +47,7 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.31.11",
+    "gh-pages": "^4.0.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.3"
   }
