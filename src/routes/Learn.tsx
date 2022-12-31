@@ -19,14 +19,18 @@ export const Learn = () => {
   const params = useLoaderData() as LearnParams
   const findDeck = useStore(store => store.findDeck)
   const log = useStore(store => store.log)
+  const decks = useStore(store => store.decks)
 
-  const deck = useMemo(() => findDeck(params.deckId), [params])
   const [cardIndex, setCardIndex] = useState(0)
-  const card = useMemo(() => deck?.cards[cardIndex] || null, [deck, cardIndex])
   const [showAnswer, setShowAnswer] = useState(false)
   const [showCard, setShowCard] = useState(true)
   const [slideDir, setSlideDir] = useState<'left' | 'right' | 'up'>('up')
+
   const slideContainerRef = React.useRef(null)
+
+  const deck = useMemo(() => findDeck(params.deckId), [params, decks])
+  const card = useMemo(() => deck?.cards[cardIndex] || null, [deck, cardIndex])
+
   let animating = false
 
   // shake event listener
@@ -36,6 +40,7 @@ export const Learn = () => {
       return () => handle()
     }
   }, [])
+
   const handleShake: ShakeHandler = ({ type }) => {
     if (animating) {
       return
