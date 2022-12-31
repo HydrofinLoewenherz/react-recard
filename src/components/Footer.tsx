@@ -6,8 +6,8 @@ export const Footer = () => {
     <Box position={'fixed'} bottom={0} width={'100%'}>
       <Paper sx={{ p: 2 }} square>
         <Typography>
-          Created by <Link to={'https://github.com/cryeprecision'}>Rico (----)</Link> and{' '}
-          <Link to={'https://github.com/HydrofinLoewenherz'}>Paul (ujhtl)</Link>
+          Created by <Link to={'https://github.com/cryeprecision'}>Rico Münch (uozjn)</Link> and{' '}
+          <Link to={'https://github.com/HydrofinLoewenherz'}>Paul Wagner (ujhtl)</Link>
         </Typography>
       </Paper>
     </Box>

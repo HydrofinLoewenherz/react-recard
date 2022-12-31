@@ -29,7 +29,7 @@ Every feature of the app has a person responsible for it. This person created mo
 
 ## Authors
 
-The project was created by [Rico (-)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
+The project was created by [Rico (uozjn)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
 
 ## Notes
 
@@ -39,4 +39,4 @@ as it is not used commercially.
 
 
 [paul-github]: https://github.com/HydrofinLoewenherz "ujhtl"
-[rico-github]: https://github.com/cryeprecision "-"
+[rico-github]: https://github.com/cryeprecision "uozjn"
