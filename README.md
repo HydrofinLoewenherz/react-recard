@@ -23,109 +23,119 @@ Every feature of the app has a person responsible for it. This person created mo
   </thead>
   <tbody>
     <tr>
-      <td>Multi-user authentication</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:key: Multi-user authentication</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Password and username strength checker</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:muscle: Password and username strength checker</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>User creation</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:raising_hand: User creation</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>User sessions</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:clipboard: User sessions</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Deck save in Localstorage</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:floppy_disk: Deck save in Localstorage</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Localstorage military grade encryption</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:lock: Localstorage encryption with AES</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Deck creation/edit/delete</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:dizzy_face: Obfuscate localstorage keys</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Card creation/edit/delete</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:books: Deck creation/edit/delete</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Log aggregation of learning progress</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:black_joker: Card creation/edit/delete</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Graphical display of learning progress</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:pencil2: Log aggregation of learning progress</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Shake-API creation and integration</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:minidisc: Efficient saving of logs</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Swipe-API integration</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:chart_with_upwards_trend: Graphical display of learning progress</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Page routing</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:wave: Shake-API creation and integration</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Latex support in card answers</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:fu: Swipe-API integration</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Material-UI integration</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:twisted_rightwards_arrows: Page routing</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Responsive Appbar</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:u55b6: Latex support in card answers</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Initial seeding of decks and cards</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:star: Material-UI integration</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>Responsive and reactive Card-UI</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:chocolate_bar: Responsive Appbar</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Themes (auto-/light-/darkmode) support</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:trollface: Initial seeding of decks and cards</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Support `prefers-color-scheme` for themes</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:flower_playing_cards: Responsive and reactive Card-UI</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
     <tr>
-      <td>Open Graph Protocol support</td>
-      <td>X</td>
-      <td>X</td>
+      <td>:performing_arts: Themes (auto-/light-/darkmode) support</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>:eyeglasses: Support `prefers-color-scheme` for themes</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>:newspaper: Open Graph Protocol support</td>
+      <td>:heavy_check_mark:</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
