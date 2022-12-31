@@ -109,6 +109,11 @@ export const Learn = () => {
           </Button>
         </ButtonGroup>
       </Box>
+
+      <Typography sx={{ textAlign: 'center', mt: 4 }}>
+        Swipe or Shake to the left or right to get the next card. Left meaning, that you didn't kew the answer and right that you did know
+        it.
+      </Typography>
     </Container>
   )
 }
