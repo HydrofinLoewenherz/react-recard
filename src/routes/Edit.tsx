@@ -54,7 +54,9 @@ const EditCard = ({ value: card, onChange, onDelete }: EditCardProps) => {
               <TextField label={'Card Name'} value={card.name} onChange={({ target }) => onChange({ ...card, name: target.value })} />
             </Grid>
             <Grid item ml={'auto'} my={'auto'}>
-              <Button onClick={onDelete}>Delete</Button>
+              <Button onClick={onDelete} aria-label={'delete deck'}>
+                Delete
+              </Button>
             </Grid>
             <Grid item xs={2}>
               <TextField
@@ -131,10 +133,10 @@ export const Edit = () => {
                       Cards
                     </Typography>
                     <Box>
-                      <Button variant={'text'} onClick={saveDecks}>
+                      <Button variant={'text'} onClick={saveDecks} aria-label={'save cards'}>
                         Save
                       </Button>
-                      <Button variant={'text'} onClick={createNew}>
+                      <Button variant={'text'} onClick={createNew} aria-label={'create new empty card'}>
                         New
                       </Button>
                     </Box>

@@ -100,7 +100,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         )}
       </CardContent>
       <CardActions>
-        <Button variant='contained' component={Link} to={`/learn/${deck.id}`} sx={{ mx: 'auto' }}>
+        <Button variant='contained' component={Link} to={`/learn/${deck.id}`} sx={{ mx: 'auto' }} aria-label={'learn deck'}>
           Learn Cards
         </Button>
       </CardActions>
@@ -142,10 +142,10 @@ const CreateDeck = () => {
       </CardContent>
       <CardActions>
         <ButtonGroup sx={{ mx: 'auto' }}>
-          <FormButton variant={'contained'} onClick={onSave} disabled={name.length < 3}>
+          <FormButton variant={'contained'} onClick={onSave} disabled={name.length < 3} aria-label={'save'}>
             Save
           </FormButton>
-          <Button variant='outlined' onClick={onCancel} disabled={name.length === 0}>
+          <Button variant='outlined' onClick={onCancel} disabled={name.length === 0} aria-label={'cancel create deck'}>
             Cancel
           </Button>
         </ButtonGroup>
@@ -173,7 +173,7 @@ export const Home = () => {
         {(decks === null || decks.length === 0) && (
           <Paper sx={{ display: 'flex', flexFlow: 'column', justifyContent: 'center', textAlign: 'center', p: 2 }}>
             <Typography sx={{ mb: 2 }}>You have no decks!</Typography>
-            <Button variant={'contained'} onClick={seed}>
+            <Button variant={'contained'} onClick={seed} aria-label={'add example deck'}>
               Add Example Deck
             </Button>
           </Paper>

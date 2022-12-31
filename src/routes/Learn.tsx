@@ -105,11 +105,13 @@ export const Learn = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <ButtonGroup>
-          <Button onClick={() => nextCard(false)} startIcon={<ArrowBack />}>
+          <Button onClick={() => nextCard(false)} startIcon={<ArrowBack />} aria-label={'wrong answer, next'}>
             {"What's that?"}
           </Button>
-          <Button onClick={() => setShowAnswer(v => !v)}>{showAnswer ? 'Hide' : 'Show'} Answer</Button>
-          <Button onClick={() => nextCard(true)} endIcon={<ArrowForward />}>
+          <Button onClick={() => setShowAnswer(v => !v)} aria-label={'show answer'}>
+            {showAnswer ? 'Hide' : 'Show'} Answer
+          </Button>
+          <Button onClick={() => nextCard(true)} endIcon={<ArrowForward />} aria-label={'right answer, next'}>
             I know that!
           </Button>
         </ButtonGroup>

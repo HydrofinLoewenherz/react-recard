@@ -60,6 +60,7 @@ function ResponsiveAppBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            aria-label={'go to homepage'}
           >
             Recard
           </Button>
@@ -128,6 +129,7 @@ function ResponsiveAppBar() {
                 to={page.to}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, mx: 1, color: 'white' }}
+                aria-label={`go to page ${page.label}`}
               >
                 {page.label}
               </Button>

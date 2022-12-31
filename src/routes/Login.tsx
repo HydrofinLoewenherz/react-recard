@@ -93,10 +93,10 @@ const LoginPage = () => {
         </Suspense>
       </Box>
       <ButtonGroup>
-        <FormButton onClick={onLogin} fullWidth disabled={!validInput}>
+        <FormButton onClick={onLogin} fullWidth disabled={!validInput} aria-label={'login'}>
           Login
         </FormButton>
-        <FormButton onClick={onSignup} fullWidth disabled={!validInput}>
+        <FormButton onClick={onSignup} fullWidth disabled={!validInput} aria-label={'signup'}>
           Signup
         </FormButton>
       </ButtonGroup>
@@ -124,7 +124,7 @@ const LogoutPage = ({ creds }: LogoutProps) => {
       <Typography variant='h4' sx={{ mx: 'auto' }}>
         {`Hello, ${creds.username}`}
       </Typography>
-      <FormButton onClick={onLogout} fullWidth>
+      <FormButton onClick={onLogout} fullWidth aria-label={'logout'}>
         Logout
       </FormButton>
     </Stack>
