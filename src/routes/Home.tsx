@@ -77,7 +77,7 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
                 </ListItemIcon>
                 <ListItemText>Manage</ListItemText>
               </MenuItem>
-              <MenuItem onClick={() => removeDeck(deck.name)}>
+              <MenuItem onClick={() => removeDeck(deck.id)}>
                 <ListItemIcon>
                   <Delete />
                 </ListItemIcon>
@@ -114,7 +114,8 @@ const CreateDeck = () => {
   const saveDecks = useStore(store => store.saveDecks)
 
   const onSave = async () => {
-    if (!setDeck({ id: uuid(), name, cards: [] })) {
+    const id = uuid()
+    if (!setDeck({ id: id, name, cards: [] })) {
       alert("Couldn't save deck")
       return
     }
@@ -123,7 +124,7 @@ const CreateDeck = () => {
       return
     }
     setName('')
-    navigate(`/edit/${name}`)
+    navigate(`/edit/${id}`)
   }
 
   const onCancel = () => {

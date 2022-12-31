@@ -50,11 +50,11 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     set(state => ({ ...state, decks: decks.slice() }))
     return true
   },
-  removeDeck: (name: string): boolean => {
+  removeDeck: (id: typeof uuid): boolean => {
     const { decks } = get()
     if (decks === null) return false
 
-    const index = decks.findIndex(deck => deck.name === name)
+    const index = decks.findIndex(deck => deck.id === id)
     if (index === -1) {
       return false
     }

@@ -16,7 +16,7 @@ export interface DeckSlice {
   loadDecks: () => Promise<boolean>
   saveDecks: () => Promise<boolean>
   setDeck: (deck: Deck) => boolean
-  removeDeck: (name: string) => boolean
+  removeDeck: (id: uuid) => boolean
   findDeck: (id: uuid) => Deck | null
 }
 
