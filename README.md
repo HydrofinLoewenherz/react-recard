@@ -1,7 +1,10 @@
 # Recard
 
 Recard is a web-app for creating and learning decks of cards. Cards are simple question-answer sheets that can be learned.
-The app keeps track of the learning progress and shows responsive graphs for it.
+The app keeps track of the learning progress and shows responsive graphs for it. 
+
+**See the app [here on GitHub Pages][pages].**
+
 
 ## Score
 
@@ -98,7 +101,7 @@ Every feature of the app has a person responsible for it. This person created mo
       <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>:u55b6: <a href="https://katex.org/">KaTeX</a> -support in cards</td>
+      <td>:u55b6: <a href="https://katex.org/">KaTeX</a>-support in cards</td>
       <td></td>
       <td>:heavy_check_mark:</td>
     </tr>
@@ -149,6 +152,7 @@ The project was created by [Rico (uozjn)][rico-github] and [Paul Wagner (ujhtl)]
 The app icon is the Material-UI `Styles` icon. We do not own that icon, it is simply the chosen placeholder for this app
 as it is not used commercially.
 
+[pages]: https://hydrofinloewenherz.github.io/react-recard/ 'Recard on GitHub Pages'
 [lighthouse]: https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=de 'lighthouse extension'
 [paul-github]: https://github.com/HydrofinLoewenherz 'ujhtl'
 [rico-github]: https://github.com/cryeprecision 'uozjn'
