@@ -32,7 +32,7 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     return true
   },
   setDeck: (deck: Deck): boolean => {
-    const { decks } = get()
+    const { decks, saveDecks } = get()
     if (decks === null) return false
 
     const index = decks.findIndex(deck_ => deck_.id === deck.id)
@@ -48,10 +48,12 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     // Without the `slice`-call the state-change wouldn't be registered,
     // since it'd still be the same array, only the data inside the array changed
     set(state => ({ ...state, decks: decks.slice() }))
+
+    saveDecks()
     return true
   },
   removeDeck: (id: typeof uuid): boolean => {
-    const { decks } = get()
+    const { decks, saveDecks } = get()
     if (decks === null) return false
 
     const index = decks.findIndex(deck => deck.id === id)
@@ -63,6 +65,8 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     // Without the `slice`-call the state-change wouldn't be registered,
     // since it'd still be the same array, only the data inside the array changed
     set(state => ({ ...state, decks: decks.slice() }))
+
+    saveDecks()
     return true
   },
   findDeck: (id: typeof uuid): Deck | null => {

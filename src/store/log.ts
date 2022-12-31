@@ -10,10 +10,11 @@ const logKey = (type: string, cred: Credentials): StoreKey => {
 export const createLogSlice: StateCreator<LogSlice> = (set, get) => ({
   cardLogs: [],
   log: (deckId, cardId, success) => {
-    const { cardLogs } = get()
+    const { cardLogs, saveLogs } = get()
     cardLogs.push({ deckId, cardId, time: new Date().getTime(), success })
     // `slice` is called for the same reason as here `[src/store/deck.ts:48]`
     set(state => ({ ...state, cardLogs: cardLogs.slice() }))
+    saveLogs()
     return true
   },
   saveLogs: async (): Promise<boolean> => {
