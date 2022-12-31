@@ -98,7 +98,7 @@ Every feature of the app has a person responsible for it. This person created mo
       <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <td>:u55b6: Latex support in card answers</td>
+      <td>:u55b6: <a href="https://katex.org/">KaTeX</a> -support in cards</td>
       <td></td>
       <td>:heavy_check_mark:</td>
     </tr>

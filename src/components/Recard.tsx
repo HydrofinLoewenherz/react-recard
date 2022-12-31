@@ -15,7 +15,9 @@ export type RecardProps = {
 export const Recard = ({ question, answer, displayMode, showAnswer, onClick }: RecardProps): JSX.Element => {
   return (
     <Accordion expanded={showAnswer} onClick={onClick}>
-      <AccordionSummary>{question}</AccordionSummary>
+      <AccordionSummary>
+        <Latex displayMode={displayMode}>{question}</Latex>
+      </AccordionSummary>
       <AccordionDetails>
         <Latex displayMode={displayMode}>{answer}</Latex>
       </AccordionDetails>
