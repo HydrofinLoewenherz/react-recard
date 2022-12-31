@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, Checkbox, FormControlLabel, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useStore } from '../store/store'
@@ -110,9 +110,11 @@ export const Login = () => {
   const storeCreds = useStore(store => store.credentials)
 
   return (
-    <Grid container direction='column' alignItems='center' justifyContent='center' sx={{ minHeight: '100vh' }}>
+    <Grid container direction='column' alignItems='center' justifyContent='center' sx={{ minHeight: '50vh' }}>
       <Grid xs={12} md={6} lg={3}>
-        <Box sx={{ p: 2 }}>{(storeCreds !== null && <LogoutPage creds={storeCreds} />) || <LoginPage />}</Box>
+        <Paper elevation={1} sx={{ p: 2, m: 2 }}>
+          {(storeCreds !== null && <LogoutPage creds={storeCreds} />) || <LoginPage />}
+        </Paper>
       </Grid>
     </Grid>
   )

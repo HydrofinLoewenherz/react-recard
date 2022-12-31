@@ -1,19 +1,15 @@
-import React, { FC, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import { Edit, Home, Learn, Login, Error, Root, deckLoader, learnLoader, Log } from './routes'
 import { useStore } from './store/store'
 import { recallLogin } from './store/user_storage'
 import { CssBaseline } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { LoginRedirect } from './components/LoginRedirect'
 
-// shows the component children if logged in, otherwise the login page
-// see https://stackoverflow.com/a/68777827/10619052
-const RequireLogin: FC<{ children: React.ReactElement }> = ({ children }) => {
-  const isLoggedIn = useStore().isLoggedIn()
-  if (!isLoggedIn) {
-    return <Login />
-  }
-  return children
+const RequireLogin = ({ children }: { children: React.ReactElement }) => {
+  const isLoggedIn = useStore(store => store.isLoggedIn)
+  return isLoggedIn() ? children : <LoginRedirect />
 }
 
 const router = createHashRouter([
