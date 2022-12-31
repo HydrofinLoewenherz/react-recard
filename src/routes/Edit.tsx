@@ -84,7 +84,8 @@ export const Edit = () => {
   const findDeck = useStore(store => store.findDeck)
   const setDeck = useStore(store => store.setDeck)
   const saveDecks = useStore(store => store.saveDecks)
-  const deck = useMemo(() => findDeck(params.deckId), [params])
+  const decks = useStore(store => store.decks)
+  const deck = useMemo(() => findDeck(params.deckId), [params, decks])
 
   const createNew = () => {
     if (deck === null) {
