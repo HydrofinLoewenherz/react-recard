@@ -19,7 +19,6 @@ const pages = [
   { to: '/', label: 'Home', icon: <Home /> },
   { to: '/logs', label: 'Logs', icon: <Book /> },
 ]
-const settings = [{ to: '/login', label: 'Login / Logout' }]
 
 function ResponsiveAppBar() {
   const toggleTheme = useStore(store => store.toggleThemeMode)
@@ -157,12 +156,10 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map(setting => (
-                <MenuItem component={Link} key={setting.to} to={setting.to} onClick={handleCloseUserMenu}>
-                  <ListItemIcon>{isLoggedIn ? <Person /> : <Login />}</ListItemIcon>
-                  <ListItemText>{isLoggedIn ? 'Profile' : 'Login'}</ListItemText>
-                </MenuItem>
-              ))}
+              <MenuItem component={Link} to={'/login'} onClick={handleCloseUserMenu}>
+                <ListItemIcon>{isLoggedIn ? <Person /> : <Login />}</ListItemIcon>
+                <ListItemText>{isLoggedIn ? 'Profile' : 'Login'}</ListItemText>
+              </MenuItem>
 
               <MenuItem
                 onClick={() => {
