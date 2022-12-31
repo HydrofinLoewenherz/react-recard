@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
+import { Box, ButtonGroup, Checkbox, FormControlLabel, IconButton, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useStore } from '../store/store'
@@ -6,11 +6,14 @@ import { FormButton } from '../components/FormButton'
 import { addNewUser, forgetLogin, rememberLogin, userExists } from '../store/user_storage'
 import { toSafeCredentials } from '../store/storage'
 import { Credentials } from '../types'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import InputAdornment from '@mui/material/InputAdornment'
 
 const LoginPage = () => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [stayLoggedIn, setStayLoggedIn] = useState(false)
 
   const login = useStore(store => store.login)
 
@@ -38,6 +41,7 @@ const LoginPage = () => {
     }
     clearInput()
   }
+  const onToggleShowPassword = () => setShowPassword(show => !show)
 
   const validPassword = password !== '' && /\d{2,}/i.test(password)
   const validInput = username !== '' && validPassword
@@ -48,7 +52,21 @@ const LoginPage = () => {
         Login
       </Typography>
       <TextField value={username} onChange={({ target }) => setUsername(target.value)} label='Username' />
-      <TextField value={password} onChange={({ target }) => setPassword(target.value)} label='Password' />
+      <TextField
+        value={password}
+        onChange={({ target }) => setPassword(target.value)}
+        label='Password'
+        type={showPassword ? 'text' : 'password'}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton onClick={onToggleShowPassword} edge='end'>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
       <ButtonGroup>
         <FormButton onClick={onLogin} fullWidth disabled={!validInput}>
           Login
