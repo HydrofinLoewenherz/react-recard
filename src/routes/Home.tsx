@@ -24,7 +24,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import ExampleDeck from '../assets/seeding/my-first-deck.json'
 import { ArgumentAxis, Chart, LineSeries, ValueAxis } from '@devexpress/dx-react-chart-material-ui'
 import { ValueAxis as ValueAxisBase } from '@devexpress/dx-react-chart'
-import { FormButton } from '../components'
 import { v4 as uuid } from 'uuid'
 
 const ValueLabel = (props: ValueAxisBase.LabelProps) => {
@@ -134,23 +133,19 @@ const CreateDeck = () => {
   }
 
   return (
-    <Card>
-      <CardContent>
-        <Stack gap={2}>
-          <TextField label={'Deck Name'} value={name} onChange={({ target }) => setName(target.value)} />
-        </Stack>
-      </CardContent>
-      <CardActions>
-        <ButtonGroup sx={{ mx: 'auto' }}>
-          <FormButton variant={'contained'} onClick={onSave} disabled={name.length < 3} aria-label={'save'}>
+    <Paper sx={{ p: 2 }}>
+      <Stack gap={1}>
+        <TextField label={'Deck Name'} value={name} onChange={({ target }) => setName(target.value)} />
+        <ButtonGroup>
+          <Button fullWidth variant='outlined' onClick={onSave} disabled={name.length < 3} aria-label={'save'}>
             Save
-          </FormButton>
-          <Button variant='outlined' onClick={onCancel} disabled={name.length === 0} aria-label={'cancel create deck'}>
+          </Button>
+          <Button fullWidth variant='outlined' onClick={onCancel} disabled={name.length === 0} aria-label={'cancel create deck'}>
             Cancel
           </Button>
         </ButtonGroup>
-      </CardActions>
-    </Card>
+      </Stack>
+    </Paper>
   )
 }
 
