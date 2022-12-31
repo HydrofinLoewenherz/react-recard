@@ -11,11 +11,10 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
 import { useStore } from '../store/store'
 import { ListItemIcon, ListItemText } from '@mui/material'
-import { AutoMode, DarkMode, LightMode, Login, Person } from '@mui/icons-material'
+import { AutoMode, DarkMode, LightMode, Login, Person, Style } from '@mui/icons-material'
 
 const pages = [
   { to: '/', label: 'Home' },
@@ -50,7 +49,7 @@ function ResponsiveAppBar() {
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Style sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Button
             component={Link}
             to='/'
@@ -64,7 +63,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Recard
           </Button>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -105,7 +104,7 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Style sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             noWrap
             component={Link}
@@ -121,7 +120,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Recard
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (

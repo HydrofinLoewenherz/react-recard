@@ -31,5 +31,12 @@ Every feature of the app has a person responsible for it. This person created mo
 
 The project was created by [Rico (-)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
 
+## Notes
+
+The app icon is the Material-UI `Styles` icon. We do not own that icon, it is simply the chosen placeholder for this app 
+as it is not used commercially.
+
+
+
 [paul-github]: https://github.com/HydrofinLoewenherz "ujhtl"
 [rico-github]: https://github.com/cryeprecision "-"
