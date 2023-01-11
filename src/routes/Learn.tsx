@@ -20,6 +20,7 @@ export const Learn = () => {
   const findDeck = useStore(store => store.findDeck)
   const log = useStore(store => store.log)
   const decks = useStore(store => store.decks)
+  const updateCardStats = useStore(store => store.updateCardStats)
 
   const [cardIndex, setCardIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
@@ -72,6 +73,13 @@ export const Learn = () => {
     }
     if (deck !== null && card !== null) {
       log(deck.id, card.id, success)
+      updateCardStats(card.id, stats => {
+        if (success) {
+          stats.correctCount += 1
+        } else {
+          stats.wrongCount += 1
+        }
+      })
     }
     Promise.resolve()
       .then(async () => (animating = true))
