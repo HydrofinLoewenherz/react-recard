@@ -51,6 +51,9 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
           successes.push(last + (log.success ? 1 : 0))
         }
       })
+    if (successes.length === 0) {
+      successes.push(1)
+    }
     return successes.map((res, index) => ({ argument: index + 1, value: Math.round((res / (index + 1)) * 100) }))
   }, [cardIds, cardLogs])
 
@@ -88,15 +91,16 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
           </>
         }
         title={deck.name}
+        titleTypographyProps={{ textAlign: 'center', variant: 'h6' }}
       />
       <CardContent>
-        {graphData.length > 0 && (
-          <Chart data={graphData}>
+        <Paper elevation={2}>
+          <Chart data={graphData} height={200}>
             <ArgumentAxis />
             <ValueAxis labelComponent={ValueLabel} />
             <LineSeries valueField='value' argumentField='argument' />
           </Chart>
-        )}
+        </Paper>
       </CardContent>
       <CardActions>
         <Button variant='contained' component={Link} to={`/learn/${deck.id}`} sx={{ mx: 'auto' }} aria-label={'learn deck'}>
@@ -159,11 +163,15 @@ export const Home = () => {
 
   return (
     <Container sx={{ my: 4 }}>
-      <Typography sx={{ mt: 4, mb: 1 }}>Create Deck</Typography>
+      <Typography variant='h5' sx={{ mt: 4, mb: 1 }}>
+        Create Deck
+      </Typography>
       <CreateDeck />
 
-      <Typography sx={{ mt: 4 }}>Decks</Typography>
-      <Stack gap={1} sx={{ mt: 1 }}>
+      <Typography variant='h5' sx={{ mt: 4 }}>
+        Decks
+      </Typography>
+      <Stack gap={2} sx={{ mt: 1 }}>
         {decks !== null && decks.map(deck => <DeckInfo deck={deck} key={deck.id} />)}
         {(decks === null || decks.length === 0) && (
           <Paper sx={{ display: 'flex', flexFlow: 'column', justifyContent: 'center', textAlign: 'center', p: 2 }}>
