@@ -2,7 +2,6 @@ import { Credentials } from '../types'
 import { CardStats, DeckSession, DeckStats } from '../types/stats'
 import { StateCreator, StatsSlice } from '../types/store'
 import { Local, StoreKey, userKey } from './storage'
-import { v4 as uuid } from 'uuid'
 
 const statsKey = (type: string, cred: Credentials): StoreKey => {
   return userKey(`stats__${type}`, cred)
