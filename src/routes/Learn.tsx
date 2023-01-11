@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Slide, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, LinearProgress, Slide, Typography } from '@mui/material'
 import { LoaderFunction, useLoaderData } from 'react-router-dom'
 import { useStore } from '../store/store'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -97,7 +97,10 @@ export const Learn = () => {
 
   return (
     <Container {...handlers} sx={{ mt: 4 }}>
-      <Typography variant='h3'>{deck?.name ?? 'deck not found'}</Typography>
+      <Typography variant='h6'>
+        {deck?.name ?? 'deck not found'} {deck !== null && `(Card ${Math.min(cardIndex + 1, deck.cards.length)}/${deck.cards.length})`}
+      </Typography>
+      {deck !== null && <LinearProgress variant='determinate' value={(cardIndex / deck.cards.length) * 100} />}
       <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
         <Slide direction={slideDir} in={showCard}>
           <Box>
