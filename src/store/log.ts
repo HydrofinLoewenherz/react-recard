@@ -31,4 +31,7 @@ export const createLogSlice: StateCreator<LogSlice> = (set, get) => ({
     set(state => ({ ...state, cardLogs }))
     return true
   },
+  resetLogs: (): void => {
+    set(state => ({ ...state, cardLogs: [] }))
+  },
 })

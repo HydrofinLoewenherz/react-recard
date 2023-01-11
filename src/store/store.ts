@@ -5,6 +5,7 @@ import { createDeckSlice } from './deck'
 import { createLogSlice } from './log'
 import { devtools } from 'zustand/middleware'
 import { createThemeSlice } from './theme'
+import { createStatsSlice } from './stats'
 
 export const useStore = create<Store>()(
   devtools((...args) => ({
@@ -12,5 +13,6 @@ export const useStore = create<Store>()(
     ...createDeckSlice(...args),
     ...createLogSlice(...args),
     ...createThemeSlice(...args),
+    ...createStatsSlice(...args),
   })),
 )
