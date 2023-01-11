@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Recard } from '../components'
 import { onShake, ShakeHandler } from '../api/shake'
 import { useSwipeable } from 'react-swipeable'
-import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import { Check, Clear } from '@mui/icons-material'
 
 export type LearnParams = {
   deckId: string
@@ -105,22 +105,21 @@ export const Learn = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <ButtonGroup>
-          <Button onClick={() => nextCard(false)} startIcon={<ArrowBack />} aria-label={'wrong answer, next'}>
-            {"What's that?"}
+          <Button onClick={() => nextCard(false)} aria-label={'wrong answer'}>
+            <Clear />
           </Button>
           <Button onClick={() => setShowAnswer(v => !v)} aria-label={'show answer'}>
-            {showAnswer ? 'Hide' : 'Show'} Answer
+            {`${showAnswer ? 'Hide' : 'Show'} Answer`}
           </Button>
-          <Button onClick={() => nextCard(true)} endIcon={<ArrowForward />} aria-label={'right answer, next'}>
-            I know that!
+          <Button onClick={() => nextCard(true)} aria-label={'correct answer'}>
+            <Check />
           </Button>
         </ButtonGroup>
       </Box>
 
       <Typography sx={{ textAlign: 'center', mt: 4 }}>
-        {
-          "Swipe or Shake to the left or right to get the next card. Left meaning, that you didn't kew the answer and right that you did know it."
-        }
+        {'Swipe or shake to the left or right to get the next card.' +
+          " Left meaning, that you didn't know the answer and right that you did know it."}
       </Typography>
     </Container>
   )
