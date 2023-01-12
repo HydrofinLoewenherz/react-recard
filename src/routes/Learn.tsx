@@ -97,9 +97,14 @@ export const Learn = () => {
 
   return (
     <Container {...handlers} sx={{ mt: 4 }}>
-      <Typography variant='h6'>
-        {deck?.name ?? 'deck not found'} {deck !== null && `(Card ${Math.min(cardIndex + 1, deck.cards.length)}/${deck.cards.length})`}
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+        <Typography variant='h4'>
+          {deck?.name ?? 'deck not found'} – {card?.name ?? 'name not found'}
+        </Typography>
+        <Typography variant='body1' sx={{ mt: 'auto' }}>
+          {deck !== null && `${Math.min(cardIndex + 1, deck.cards.length)}/${deck.cards.length}`}
+        </Typography>
+      </Box>
       {deck !== null && <LinearProgress variant='determinate' value={(cardIndex / deck.cards.length) * 100} />}
       <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
         <Slide direction={slideDir} in={showCard}>
@@ -116,13 +121,13 @@ export const Learn = () => {
 
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <ButtonGroup>
-          <Button onClick={() => nextCard(false)} aria-label={'wrong answer'}>
+          <Button onClick={() => nextCard(false)} aria-label={'I had the wrong answer'} title={'I had the wrong answer'}>
             <Clear />
           </Button>
-          <Button onClick={() => setShowAnswer(v => !v)} aria-label={'show answer'}>
+          <Button onClick={() => setShowAnswer(v => !v)} aria-label={'show me the answer'} title={'show me the answer'}>
             {`${showAnswer ? 'Hide' : 'Show'} Answer`}
           </Button>
-          <Button onClick={() => nextCard(true)} aria-label={'correct answer'}>
+          <Button onClick={() => nextCard(true)} aria-label={'I had the correct answer'} title={'I had the correct answer'}>
             <Check />
           </Button>
         </ButtonGroup>
