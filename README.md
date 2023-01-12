@@ -140,6 +140,11 @@ Every feature of the app has a person responsible for it. This person created mo
       <td>:heavy_check_mark:</td>
       <td></td>
     </tr>
+    <tr>
+      <td>:video_game: Gamification with progress bar</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
+    </tr>
   </tbody>
 </table>
 
