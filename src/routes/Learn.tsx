@@ -106,7 +106,7 @@ export const Learn = () => {
         </Typography>
       </Box>
       {deck !== null && <LinearProgress variant='determinate' value={(cardIndex / deck.cards.length) * 100} />}
-      <Paper sx={{ pb: 2 }}>
+      <Paper>
         <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
           <Slide direction={slideDir} in={showCard}>
             <Box>

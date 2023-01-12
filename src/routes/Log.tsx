@@ -1,7 +1,34 @@
-import { Container, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material'
-import React from 'react'
+import { Container, List, ListItem, ListItemAvatar, Avatar, ListItemText, Paper } from '@mui/material'
+import React, { useMemo } from 'react'
 import { useStore } from '../store/store'
+import { CardLog } from '../types/log'
 import { Clear, Done } from '@mui/icons-material'
+
+const LogItem = ({ deckId, cardId, time, success }: CardLog) => {
+  const findDeck = useStore(store => store.findDeck)
+  const deckName = useMemo(() => findDeck(deckId)?.name, [deckId])
+  const cardName = useMemo(() => findDeck(deckId)?.cards.find(c => c.id === cardId)?.name, [deckId, cardId])
+
+  return (
+    <ListItem>
+      <ListItemAvatar>
+        {success ? (
+          <Avatar sx={{ bgcolor: 'green' }}>
+            <Done />
+          </Avatar>
+        ) : (
+          <Avatar>
+            <Clear />
+          </Avatar>
+        )}
+      </ListItemAvatar>
+      <ListItemText
+        primary={`${deckName || deckId} – ${cardName || cardId}`}
+        secondary={new Date(time).toLocaleDateString() + ' ' + new Date(time).toLocaleTimeString()}
+      ></ListItemText>
+    </ListItem>
+  )
+}
 
 export const Log = () => {
   const cardLogs = useStore(store => store.cardLogs)
@@ -11,18 +38,7 @@ export const Log = () => {
       <Paper>
         <List>
           {cardLogs.map((log, i) => (
-            <ListItem key={i}>
-              <ListItemText>
-                <Typography color={'lightblue'} component={'span'}>
-                  {log.cardId}
-                </Typography>
-                <Typography component={'span'}> at </Typography>
-                <Typography color={'lightblue'} component={'span'}>
-                  {new Date(log.time).toDateString()}
-                </Typography>
-              </ListItemText>
-              <ListItemIcon>{log.success ? <Done /> : <Clear />}</ListItemIcon>
-            </ListItem>
+            <LogItem {...log} key={i}></LogItem>
           ))}
           {cardLogs.length !== 0 ? undefined : (
             <ListItem>

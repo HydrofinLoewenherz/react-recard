@@ -1,8 +1,6 @@
-import { v4 as uuid } from 'uuid'
-
 export type CardLog = {
-  deckId: uuid
-  cardId: uuid
+  deckId: string
+  cardId: string
   time: number
   success: boolean
 }
