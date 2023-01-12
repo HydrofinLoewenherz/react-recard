@@ -58,7 +58,7 @@ const LoginPage = () => {
         value={username}
         onChange={({ target }) => setUsername(target.value)}
         label='Username'
-        error={!validUsername}
+        error={username.length > 0 && !validUsername}
         helperText={!validUsername && 'Must be at least 5 characters'}
         required
       />
@@ -70,7 +70,7 @@ const LoginPage = () => {
           label='Password'
           type={showPassword ? 'text' : 'password'}
           helperText={helperText}
-          error={!validPassword}
+          error={password.length > 0 && !validPassword}
           required
           InputProps={{
             endAdornment: (
