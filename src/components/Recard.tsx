@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import Latex from 'react-latex'
 import '../assets/katex.min.css'
 import React from 'react'
+import { ExpandMore } from '@mui/icons-material'
 
 export type RecardProps = {
   question: string
@@ -15,7 +16,7 @@ export type RecardProps = {
 export const Recard = ({ question, answer, displayMode, showAnswer, onClick }: RecardProps): JSX.Element => {
   return (
     <Accordion expanded={showAnswer} onClick={onClick}>
-      <AccordionSummary>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Latex displayMode={displayMode}>{question}</Latex>
       </AccordionSummary>
       <AccordionDetails>

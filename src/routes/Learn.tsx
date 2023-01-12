@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, LinearProgress, Slide, Typography } from '@mui/material'
+import { Paper, Box, Button, ButtonGroup, Container, LinearProgress, Slide, Typography } from '@mui/material'
 import { LoaderFunction, useLoaderData } from 'react-router-dom'
 import { useStore } from '../store/store'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -106,20 +106,22 @@ export const Learn = () => {
         </Typography>
       </Box>
       {deck !== null && <LinearProgress variant='determinate' value={(cardIndex / deck.cards.length) * 100} />}
-      <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
-        <Slide direction={slideDir} in={showCard}>
-          <Box>
-            <Recard
-              onClick={() => setShowAnswer(v => !v)}
-              showAnswer={showAnswer}
-              question={card?.question ?? '-'}
-              answer={card?.answer ?? '-'}
-            />
-          </Box>
-        </Slide>
-      </Box>
+      <Paper sx={{ pb: 2 }}>
+        <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
+          <Slide direction={slideDir} in={showCard}>
+            <Box>
+              <Recard
+                onClick={() => setShowAnswer(v => !v)}
+                showAnswer={showAnswer}
+                question={card?.question ?? '-'}
+                answer={card?.answer ?? '-'}
+              />
+            </Box>
+          </Slide>
+        </Box>
+      </Paper>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
         <ButtonGroup>
           <Button onClick={() => nextCard(false)} aria-label={'I had the wrong answer'} title={'I had the wrong answer'}>
             <Clear />
@@ -133,7 +135,7 @@ export const Learn = () => {
         </ButtonGroup>
       </Box>
 
-      <Typography sx={{ textAlign: 'center', mt: 4 }}>
+      <Typography sx={{ textAlign: 'center', mt: 6, opacity: 0.6 }}>
         {'Swipe or shake to the left or right to get the next card.' +
           " Left meaning, that you didn't know the answer and right that you did know it."}
       </Typography>

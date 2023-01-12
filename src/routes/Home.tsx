@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Card,
@@ -51,9 +52,6 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
           successes.push(last + (log.success ? 1 : 0))
         }
       })
-    if (successes.length === 0) {
-      successes.push(1)
-    }
     return successes.map((res, index) => ({ argument: index + 1, value: Math.round((res / (index + 1)) * 100) }))
   }, [cardIds, cardLogs])
 
@@ -93,14 +91,32 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
         title={deck.name}
         titleTypographyProps={{ textAlign: 'center', variant: 'h6' }}
       />
-      <CardContent>
-        <Paper elevation={2}>
-          <Chart data={graphData} height={200}>
-            <ArgumentAxis />
-            <ValueAxis labelComponent={ValueLabel} />
-            <LineSeries valueField='value' argumentField='argument' />
-          </Chart>
-        </Paper>
+      <CardContent sx={{ position: 'relative' }}>
+        <Chart data={graphData.length !== 0 ? graphData : [{ argument: 0, value: 100 }]} height={200}>
+          <ArgumentAxis />
+          <ValueAxis labelComponent={ValueLabel} />
+          <LineSeries valueField='value' argumentField='argument' />
+        </Chart>
+        {graphData.length === 0 && (
+          <Box
+            sx={{
+              zIndex: 1,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 200,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Paper elevation={5} sx={{ px: 2, py: 1 }}>
+              <Typography variant='h6'>No data</Typography>
+            </Paper>
+          </Box>
+        )}
       </CardContent>
       <CardActions>
         <Button variant='contained' component={Link} to={`/learn/${deck.id}`} sx={{ mx: 'auto' }} aria-label={'learn deck'}>
