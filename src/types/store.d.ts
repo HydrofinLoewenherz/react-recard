@@ -2,7 +2,6 @@ import { StateCreator as StateCreator_ } from 'zustand'
 import { Credentials } from './auth'
 import { Deck } from './deck'
 import { CardLog } from './log'
-import { v4 as uuid } from 'uuid'
 import { CardStats } from './stats'
 
 export interface AuthSlice {
