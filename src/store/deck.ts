@@ -73,4 +73,7 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     const { decks } = get()
     return decks !== null ? decks.find(deck => deck.id === id) ?? null : null
   },
+  resetDecks() {
+      // TODO implement me!
+  },
 })
