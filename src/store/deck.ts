@@ -52,7 +52,7 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     saveDecks()
     return true
   },
-  removeDeck: (id: typeof uuid): boolean => {
+  removeDeck: (id: string): boolean => {
     const { decks, saveDecks } = get()
     if (decks === null) return false
 
@@ -69,11 +69,11 @@ export const createDeckSlice: StateCreator<DeckSlice> = (set, get) => ({
     saveDecks()
     return true
   },
-  findDeck: (id: typeof uuid): Deck | null => {
+  findDeck: (id: string): Deck | null => {
     const { decks } = get()
     return decks !== null ? decks.find(deck => deck.id === id) ?? null : null
   },
   resetDecks() {
-      // TODO implement me!
+    // TODO implement me!
   },
 })
