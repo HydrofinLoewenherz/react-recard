@@ -105,7 +105,9 @@ export const Learn = () => {
           {deck !== null && `${Math.min(cardIndex + 1, deck.cards.length)}/${deck.cards.length}`}
         </Typography>
       </Box>
-      {deck !== null && <LinearProgress variant='determinate' value={(cardIndex / deck.cards.length) * 100} />}
+      {deck !== null && (
+        <LinearProgress variant='determinate' value={(Math.min(cardIndex + 1, deck.cards.length) / deck.cards.length) * 100} />
+      )}
       <Paper>
         <Box sx={{ overflow: 'hidden', mt: 4 }} ref={slideContainerRef}>
           <Slide direction={slideDir} in={showCard}>
