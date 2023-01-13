@@ -20,13 +20,13 @@ export interface DeckSlice {
   saveDecks: () => Promise<boolean>
   resetDecks: () => void
   setDeck: (deck: Deck) => boolean
-  removeDeck: (id: uuid) => boolean
-  findDeck: (id: uuid) => Deck | null
+  removeDeck: (id: string) => boolean
+  findDeck: (id: string) => Deck | null
 }
 
 export interface LogSlice {
   cardLogs: CardLog[]
-  log: (deckId: uuid, cardId: uuid, success: boolean) => boolean
+  log: (deckId: string, cardId: string, success: boolean) => boolean
   saveLogs: () => Promise<boolean>
   loadLogs: () => Promise<boolean>
   resetLogs: () => void
