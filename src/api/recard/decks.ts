@@ -1,6 +1,7 @@
 import { Deck, DeckList } from '../../types/deck'
 import { Credentials } from '../../types'
 import { Local, StoreKey, userKey } from '../../store/storage'
+import { Buffer } from 'buffer'
 
 export const deckKey = (uuid: string, cred: Credentials): StoreKey => {
   return userKey(`deck__${uuid}`, cred)
@@ -28,4 +29,18 @@ export const setDeck = async (uuid: string, cred: Credentials, deck: Deck): Prom
 export const removeDeck = async (uuid: string, cred: Credentials): Promise<boolean> => {
   const key = deckKey(uuid, cred)
   return Local.remove(key)
+}
+
+export const serializeDeck = (deck: Deck): string => {
+  const str = JSON.stringify(deck)
+  return Buffer.from(str).toString('base64')
+}
+
+export const deserializeDeck = (data: string): Deck | null => {
+  try {
+    const buffer = Buffer.from(data, 'base64').toString()
+    return JSON.parse(buffer) as Deck
+  } catch (e) {
+    return null
+  }
 }

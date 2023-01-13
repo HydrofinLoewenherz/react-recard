@@ -1,14 +1,12 @@
-import { v4 as uuid } from 'uuid'
-
 export type Card = {
-  id: uuid
+  id: string
   name: string
   question: string
   answer: string
 }
 
 export type Deck = {
-  id: uuid
+  id: string
   name: string
   cards: Card[]
 }

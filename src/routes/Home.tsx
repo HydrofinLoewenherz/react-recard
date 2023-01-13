@@ -17,7 +17,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { MoreVert, Delete, Edit } from '@mui/icons-material'
+import { MoreVert, Delete, Edit, ContentCopy } from '@mui/icons-material'
 import React, { useMemo, useState } from 'react'
 import { useStore } from '../store/store'
 import { Deck } from '../types'
@@ -26,6 +26,7 @@ import ExampleDeck from '../assets/seeding/my-first-deck.json'
 import { ArgumentAxis, Chart, LineSeries, ValueAxis } from '@devexpress/dx-react-chart-material-ui'
 import { ValueAxis as ValueAxisBase } from '@devexpress/dx-react-chart'
 import { v4 as uuid } from 'uuid'
+import { deserializeDeck, serializeDeck } from '../api/recard'
 
 const ValueLabel = (props: ValueAxisBase.LabelProps) => {
   const { text } = props
@@ -63,6 +64,13 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+  const onExport = () => {
+    const str = serializeDeck(deck)
+    navigator.clipboard.writeText(str).then(
+      () => alert('Exported deck to clipboard'),
+      () => alert("Couldn't export deck to clipboard"),
+    )
+  }
 
   return (
     <Card>
@@ -84,6 +92,12 @@ const DeckInfo = ({ deck }: DeckInfoProps) => {
                   <Delete />
                 </ListItemIcon>
                 <ListItemText>Delete</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={onExport}>
+                <ListItemIcon>
+                  <ContentCopy />
+                </ListItemIcon>
+                <ListItemText>Export</ListItemText>
               </MenuItem>
             </Menu>
           </>
@@ -169,6 +183,37 @@ const CreateDeck = () => {
   )
 }
 
+const ImportDeck = () => {
+  const [data, setData] = useState('')
+
+  const setDeck = useStore(store => store.setDeck)
+
+  const onClick = (): void => {
+    const deck = deserializeDeck(data)
+    if (deck === null) {
+      alert("Couldn't deserialize deck")
+      return
+    }
+    deck.id = uuid()
+    setDeck(deck)
+    setData('')
+    alert('Imported deck')
+  }
+
+  return (
+    <Paper sx={{ p: 2 }}>
+      <Stack gap={1}>
+        <TextField label={'Exported Deck (Base64)'} value={data} onChange={({ target }) => setData(target.value)} />
+        <ButtonGroup>
+          <Button fullWidth variant='outlined' onClick={onClick} disabled={data.length === 0} aria-label={'import'}>
+            Import Deck
+          </Button>
+        </ButtonGroup>
+      </Stack>
+    </Paper>
+  )
+}
+
 export const Home = () => {
   const decks = useStore(store => store.decks)
   const setDeck = useStore(store => store.setDeck)
@@ -183,6 +228,11 @@ export const Home = () => {
         Create Deck
       </Typography>
       <CreateDeck />
+
+      <Typography variant='h5' sx={{ mt: 4, mb: 1 }}>
+        Import Deck
+      </Typography>
+      <ImportDeck />
 
       <Typography variant='h5' sx={{ mt: 4 }}>
         Decks
