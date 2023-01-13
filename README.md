@@ -1,10 +1,9 @@
 # Recard
 
 Recard is a web-app for creating and learning decks of cards. Cards are simple question-answer sheets that can be learned.
-The app keeps track of the learning progress and shows responsive graphs for it. 
+The app keeps track of the learning progress and shows responsive graphs for it.
 
 **See the app [here on GitHub Pages][pages].**
-
 
 ## Score
 
@@ -142,6 +141,11 @@ Every feature of the app has a person responsible for it. This person created mo
     </tr>
     <tr>
       <td>:video_game: Gamification with progress bar</td>
+      <td></td>
+      <td>:heavy_check_mark:</td>
+    </tr>
+    <tr>
+      <td>:envelope: Import/Export decks</td>
       <td></td>
       <td>:heavy_check_mark:</td>
     </tr>
