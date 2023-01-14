@@ -5,6 +5,13 @@ The app keeps track of the learning progress and shows responsive graphs for it.
 
 **See the app [here on GitHub Pages][pages].**
 
+## Considerations
+
+- **Target domain**: Anyone who wants to memorize pieces of information, but specifically MINT students because of the LaTeX integration
+- **Application class**: Tool (tracker) 
+- **Senses used**: Motory skills (shake-api)
+- **Addressed part of memory**: Long-term semantic memory
+
 ## Score
 
 The [Lighthouse][lighthouse] score for the apps frontpage.
