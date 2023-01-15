@@ -159,6 +159,18 @@ Every feature of the app has a person responsible for it. This person created mo
   </tbody>
 </table>
 
+## Screenshots
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img height="400" alt="Login page on iPhone 12 Pro" src="https://user-images.githubusercontent.com/19890613/212549792-51496145-e4fd-4537-a29c-64c193f0af52.png">
+    <img height="400" alt="Homepage on iPhone 12 Pro" src="https://user-images.githubusercontent.com/19890613/212549811-7c0b8802-a553-4138-ab6b-8873d27c3c32.png">
+    <img height="400" alt="Homepage on desktop" src="https://user-images.githubusercontent.com/19890613/212549832-0b8ebe1c-6ff7-4f7b-a910-25ec8796c3dd.png">
+    <img height="400" alt="Learn page on iPhone 12 Pro" src="https://user-images.githubusercontent.com/19890613/212549854-4fc4db69-c985-4837-87b6-478e25077d35.png">
+    <img height="400" alt="Learn latex card on iPhone 12 Pro" src="https://user-images.githubusercontent.com/19890613/212549857-e0925e8d-a342-4d28-8c88-c149a69505c3.png">
+    <img height="400" alt="Deck manage page on desktop" src="https://user-images.githubusercontent.com/19890613/212549864-31384b79-e0a8-473f-83d7-e50f82ce642f.png">
+    <img height="400" alt="Log page on iPhone 12 Pro" src="https://user-images.githubusercontent.com/19890613/212549870-4feb91db-a05c-4c4f-b3be-69952ada9b4e.png">
+</div>
+
 ## Authors
 
 The project was created by [Rico Münch (uozjn)][rico-github] and [Paul Wagner (ujhtl)][paul-github].
